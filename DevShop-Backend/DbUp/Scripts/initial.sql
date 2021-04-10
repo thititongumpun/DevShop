@@ -178,6 +178,3 @@ USE [master]
 GO
 ALTER DATABASE [DevShops] SET  READ_WRITE 
 GO
-
-
-select * from developers;
