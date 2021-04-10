@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dapper;
 using devshops.Domain.Developer.ViewModels;
 using devshops.Domain.Entities;
+using devshops.Domain.ViewModels.Position;
 using Microsoft.Extensions.Configuration;
 
 namespace devshops.Core.Repository.Developer
@@ -40,7 +41,7 @@ namespace devshops.Core.Repository.Developer
                                 LEFT JOIN DeveloperPosition DP ON D.DeveloperId = DP.DeveloperId
                                 LEFT JOIN Positions P ON DP.PositionId = P.PositionId";
                     
-                    var developers = await dbConnection.QueryAsync<DeveloperViewModel, Position, DeveloperViewModel>(sql, (developer, position) => 
+                    var developers = await dbConnection.QueryAsync<DeveloperViewModel, PositionViewModel, DeveloperViewModel>(sql, (developer, position) => 
                     {
                         developer.Positions.Add(position);
                         return developer;

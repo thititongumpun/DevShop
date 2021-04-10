@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using devshops.Domain.Entities;
+using devshops.Domain.ViewModels.Position;
 
 namespace devshops.Domain.Developer.ViewModels
 {
@@ -13,6 +13,6 @@ namespace devshops.Domain.Developer.ViewModels
         public DateTime JoinedDate { get; set; }
         //public DateTime CreatedDate { get; set; }
         //public DateTime UpdateDate { get; set; }
-        public ICollection<Position> Positions {get;set;} = new HashSet<Position>();
+        public ICollection<PositionViewModel> Positions {get;set;} = new HashSet<PositionViewModel>();
     }
 }
