@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devshops.Domain", "devshops
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devshops.Services", "devshops.Services\devshops.Services.csproj", "{24CDFF45-EBEB-408F-A37C-3AF467944199}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUp", "DbUp\DbUp.csproj", "{225F6E07-31C4-49F1-BE6C-EC99183FE115}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
