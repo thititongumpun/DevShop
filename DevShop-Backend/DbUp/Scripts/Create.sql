@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [DevShops]    Script Date: 4/10/2021 4:52:31 PM ******/
+/****** Object:  Database [DevShops]    Script Date: 4/10/2021 6:35:19 PM ******/
 CREATE DATABASE [DevShops]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -79,17 +79,22 @@ ALTER DATABASE [DevShops] SET QUERY_STORE = OFF
 GO
 USE [DevShops]
 GO
-/****** Object:  Table [dbo].[DeveloperPosition]    Script Date: 4/10/2021 4:52:31 PM ******/
+/****** Object:  Table [dbo].[DeveloperPosition]    Script Date: 4/10/2021 6:35:19 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[DeveloperPosition](
 	[DeveloperId] [int] NOT NULL,
-	[PositionId] [int] NOT NULL
+	[PositionId] [int] NOT NULL,
+ CONSTRAINT [PK_DeveloperPosition] PRIMARY KEY CLUSTERED 
+(
+	[DeveloperId] ASC,
+	[PositionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Developers]    Script Date: 4/10/2021 4:52:31 PM ******/
+/****** Object:  Table [dbo].[Developers]    Script Date: 4/10/2021 6:35:19 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -110,7 +115,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Positions]    Script Date: 4/10/2021 4:52:31 PM ******/
+/****** Object:  Table [dbo].[Positions]    Script Date: 4/10/2021 6:35:19 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,29 +129,48 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (1, 2)
+GO
 INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (1, 3)
-INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (2, 6)
-INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (1, 5)
+GO
+INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (2, 1)
+GO
+INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (4, 3)
+GO
 INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (5, 1)
-INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (5, 6)
+GO
+INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (5, 2)
+GO
+INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (5, 3)
 GO
 SET IDENTITY_INSERT [dbo].[Developers] ON 
-
+GO
 INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (1, N'นุ้ย เชิญยิ้้ม', N'nuinui@google.com', N'nuiza.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T12:58:30.453' AS DateTime), CAST(N'2021-04-10T12:58:30.453' AS DateTime), N'Y')
+GO
 INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (2, N'หนังไก่ กรอบเกิน', N'nungkai@google.com', N'nungkai.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:41.007' AS DateTime), CAST(N'2021-04-10T13:01:41.007' AS DateTime), N'Y')
+GO
 INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (3, N'test จัง', N'boba@google.com', N'babo.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:43.043' AS DateTime), CAST(N'2021-04-10T13:01:43.043' AS DateTime), N'Y')
+GO
 INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (4, N'ซัดยำ วุ้นเส้น', N'sadyum@google.com', N'sadyum.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:45.143' AS DateTime), CAST(N'2021-04-10T13:01:45.143' AS DateTime), N'Y')
+GO
 INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (5, N'ขาหมู เยอรมัน', N'kamoo@google.com', N'kamoo.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:46.670' AS DateTime), CAST(N'2021-04-10T13:01:46.670' AS DateTime), N'Y')
+GO
 SET IDENTITY_INSERT [dbo].[Developers] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Positions] ON 
-
+GO
 INSERT [dbo].[Positions] ([PositionId], [PositionName]) VALUES (1, N'Frontend')
+GO
 INSERT [dbo].[Positions] ([PositionId], [PositionName]) VALUES (2, N'Backend')
+GO
 INSERT [dbo].[Positions] ([PositionId], [PositionName]) VALUES (3, N'FullStack')
+GO
 INSERT [dbo].[Positions] ([PositionId], [PositionName]) VALUES (4, N'DevOps')
+GO
 INSERT [dbo].[Positions] ([PositionId], [PositionName]) VALUES (5, N'System Analyst')
+GO
 INSERT [dbo].[Positions] ([PositionId], [PositionName]) VALUES (6, N'Network Engineer')
+GO
 SET IDENTITY_INSERT [dbo].[Positions] OFF
 GO
 ALTER TABLE [dbo].[DeveloperPosition]  WITH CHECK ADD FOREIGN KEY([DeveloperId])

@@ -11,4 +11,11 @@ namespace devshops.Domain.ViewModels.Position
         public int PositionId { get; set; }
         public string PositionName { get; set; }
     }
+
+    public class Position1Model
+    {
+        public int PositionId { get; set; }
+        public int DeveloperId { get; set; }
+        public string PositionName { get; set; }
+    }
 }

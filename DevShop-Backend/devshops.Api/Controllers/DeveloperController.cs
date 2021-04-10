@@ -21,5 +21,12 @@ namespace devshops.Api.Controllers
             var developers = await _developerService.GetAllDevelopers();
             return Ok(developers);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DeveloperViewModel>> GetDeveloper(int id)
+        {
+            var developer = await _developerService.GetDeveloper(id);
+            return Ok(developer);
+        }
     }
 }

@@ -26,5 +26,10 @@ namespace devshops.Services.Developer
         {
             return await _developerRepository.GetAllDevelopers();
         }
+
+        public async Task<DeveloperViewModel> GetDeveloper(int id)
+        {
+            return await _developerRepository.GetDeveloper(id);
+        }
     }
 }

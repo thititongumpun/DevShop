@@ -8,5 +8,6 @@ namespace devshops.Services.Developer
     public interface IDeveloperService
     {
         Task<IEnumerable<DeveloperViewModel>>  GetAllDevelopers();
+        Task<DeveloperViewModel> GetDeveloper(int id);
     }
 }

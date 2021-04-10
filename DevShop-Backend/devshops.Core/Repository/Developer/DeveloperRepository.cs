@@ -60,5 +60,48 @@ namespace devshops.Core.Repository.Developer
                 throw new Exception("Exception !!!", ex);
             }
         }
+
+        public async Task<DeveloperViewModel> GetDeveloper(int id)
+        {
+            try
+            {
+                Dictionary<int, DeveloperViewModel> result = new Dictionary<int, DeveloperViewModel>();
+
+                using (IDbConnection dbConnection = Connection)
+                {
+                    string sql = @"SELECT D.*, P.*
+                                FROM Developers D 
+                                LEFT JOIN DeveloperPosition DS
+                                ON D.DeveloperId = DS.DeveloperId
+                                LEFT JOIN Positions P 
+                                ON DS.PositionId = P.PositionId
+                                WHERE D.DeveloperId = @id";
+
+                    var developer = await dbConnection.QueryAsync<DeveloperViewModel, PositionViewModel, DeveloperViewModel>(sql, (d, s) => 
+                    {
+                        if (!result.ContainsKey(d.DeveloperId))
+                        {
+                            result.Add(d.DeveloperId, d);
+                        }
+                        DeveloperViewModel working = result[d.DeveloperId];
+                        working.Positions.Add(s);
+                        return d;
+                    }, new { id }, splitOn: "PositionId");
+
+                    if (result.Values.Count > 0)
+                    {
+                        return result.Values.First();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Exception !!!", ex);
+            }
+        }
     }
 }
