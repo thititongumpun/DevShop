@@ -3,11 +3,6 @@ GO
 /****** Object:  Database [DevShops]    Script Date: 4/10/2021 6:35:19 PM ******/
 CREATE DATABASE [DevShops]
  CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'DevShops', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\DevShops.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'DevShops_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\DevShops_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
-GO
 ALTER DATABASE [DevShops] SET COMPATIBILITY_LEVEL = 140
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
@@ -145,15 +140,15 @@ INSERT [dbo].[DeveloperPosition] ([DeveloperId], [PositionId]) VALUES (5, 3)
 GO
 SET IDENTITY_INSERT [dbo].[Developers] ON 
 GO
-INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (1, N'πÿÈ¬ ‡™‘≠¬‘ÈÈ¡', N'nuinui@google.com', N'nuiza.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T12:58:30.453' AS DateTime), CAST(N'2021-04-10T12:58:30.453' AS DateTime), N'Y')
+INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (1, N'‡∏ô‡∏∏‡πâ‡∏¢ ‡πÄ‡∏ä‡∏¥‡∏ç‡∏¢‡∏¥‡πâ‡πâ‡∏°', N'nuinui@google.com', N'nuiza.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T12:58:30.453' AS DateTime), CAST(N'2021-04-10T12:58:30.453' AS DateTime), N'Y')
 GO
-INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (2, N'Àπ—ß‰°Ë °√Õ∫‡°‘π', N'nungkai@google.com', N'nungkai.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:41.007' AS DateTime), CAST(N'2021-04-10T13:01:41.007' AS DateTime), N'Y')
+INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (2, N'‡∏´‡∏ô‡∏±‡∏á‡πÑ‡∏Å‡πà ‡∏Å‡∏£‡∏≠‡∏ö‡πÄ‡∏Å‡∏¥‡∏ô', N'nungkai@google.com', N'nungkai.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:41.007' AS DateTime), CAST(N'2021-04-10T13:01:41.007' AS DateTime), N'Y')
 GO
-INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (3, N'test ®—ß', N'boba@google.com', N'babo.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:43.043' AS DateTime), CAST(N'2021-04-10T13:01:43.043' AS DateTime), N'Y')
+INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (3, N'test ‡∏à‡∏±‡∏á', N'boba@google.com', N'babo.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:43.043' AS DateTime), CAST(N'2021-04-10T13:01:43.043' AS DateTime), N'Y')
 GO
-INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (4, N'´—¥¬” «ÿÈπ‡ Èπ', N'sadyum@google.com', N'sadyum.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:45.143' AS DateTime), CAST(N'2021-04-10T13:01:45.143' AS DateTime), N'Y')
+INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (4, N'‡∏ã‡∏±‡∏î‡∏¢‡∏≥ ‡∏ß‡∏∏‡πâ‡∏ô‡πÄ‡∏™‡πâ‡∏ô', N'sadyum@google.com', N'sadyum.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:45.143' AS DateTime), CAST(N'2021-04-10T13:01:45.143' AS DateTime), N'Y')
 GO
-INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (5, N'¢“À¡Ÿ ‡¬Õ√¡—π', N'kamoo@google.com', N'kamoo.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:46.670' AS DateTime), CAST(N'2021-04-10T13:01:46.670' AS DateTime), N'Y')
+INSERT [dbo].[Developers] ([DeveloperId], [DeveloperName], [Email], [GithubUrl], [ImageUrl], [JoinedDate], [CreatedDate], [UpdatedDate], [Status]) VALUES (5, N'‡∏Ç‡∏≤‡∏´‡∏°‡∏π ‡πÄ‡∏¢‡∏≠‡∏£‡∏°‡∏±‡∏ô', N'kamoo@google.com', N'kamoo.com', N'aws.ssss', CAST(N'2021-04-10' AS Date), CAST(N'2021-04-10T13:01:46.670' AS DateTime), CAST(N'2021-04-10T13:01:46.670' AS DateTime), N'Y')
 GO
 SET IDENTITY_INSERT [dbo].[Developers] OFF
 GO
@@ -183,3 +178,6 @@ USE [master]
 GO
 ALTER DATABASE [DevShops] SET  READ_WRITE 
 GO
+
+
+select * from developers;

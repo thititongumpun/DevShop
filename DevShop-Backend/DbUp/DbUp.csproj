@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\Create.sql" />
+    <None Remove="Scripts\init.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\Create.sql" />
+    <EmbeddedResource Include="Scripts\init.sql" />
   </ItemGroup>
 
   <ItemGroup>
