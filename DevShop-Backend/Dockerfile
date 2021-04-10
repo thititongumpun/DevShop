@@ -1,7 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim as build
 WORKDIR /app
 COPY *.sln .
-# COPY DbUp/*.csproj ./DbUp/
 COPY devshops.Api/*.csproj ./devshops.Api/
 COPY devshops.Core/*.csproj ./devshops.Core/
 COPY devshops.Domain/*.csproj ./devshops.Domain/

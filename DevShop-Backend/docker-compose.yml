@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    ports: 
+      - 1434:1433
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=UsRSQL#PV
+    volumes:
+      - /var/opt/mssql
+
+  webapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '5000:80'
+    depends_on:
+      - mssql
+
+
+
+
+      # FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+      # WORKDIR /src
+      # COPY ["/Sentinel.DbUp.csproj", "Sentinel.DbUp/"]
+      # RUN dotnet restore "Sentinel.DbUp/Sentinel.DbUp.csproj"
+      # WORKDIR "/src/Sentinel.DbUp"
+      # COPY . .
+      # RUN dotnet build "Sentinel.DbUp.csproj" -c Release -o /app
+      # FROM build AS publish
+      # RUN dotnet publish "Sentinel.DbUp.csproj" -c Release -o /app
+      # RUN dotnet run Sentinel.DbUp --ConnectionString=Server=ms-sql-server,1477;Database=Sentinel_Local;User Id=sa;Password=SuperFun!23; --WithSeedOnce --EnsureDatabase --PerformUpgrade
