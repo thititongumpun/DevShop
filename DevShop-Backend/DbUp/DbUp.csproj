@@ -1,20 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-	 <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\initial.sql" />
+    <None Remove="Scripts\Create.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\initial.sql" />
+    <EmbeddedResource Include="Scripts\Create.sql" />
   </ItemGroup>
-
-
-
 
   <ItemGroup>
     <PackageReference Include="dbup-core" Version="4.5.0" />

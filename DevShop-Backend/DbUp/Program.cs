@@ -11,10 +11,7 @@ namespace DbUp
         {
             var connectionString = args.FirstOrDefault() 
                                     ?? "Data Source=localhost;Trusted_Connection=True;";
-            Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Console.WriteLine("Start...Migrate.......");
-            Console.ResetColor();
             var upgrader = DeployChanges.To
                                 .SqlDatabase(connectionString)
                                 .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly())
@@ -28,8 +25,10 @@ namespace DbUp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(result.Error);
                 Console.ResetColor();
-                Console.ReadLine();
 
+#if DEBUG
+                Console.ReadLine();
+#endif
                 return -1;
             }
             Console.ForegroundColor = ConsoleColor.Green;
