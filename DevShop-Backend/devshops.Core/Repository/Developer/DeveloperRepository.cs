@@ -35,7 +35,7 @@ namespace devshops.Core.Repository.Developer
                 {
                     dbConnection.Open();
                     string sql = @"SELECT D.DeveloperId, D.DeveloperName, D.Email,
-                                D.GithubUrl, D.JoinedDate,
+                                D.GithubUrl, D.JoinedDate, D.Status,
                                 P.PositionId, P.PositionName
                                 FROM Developers D
                                 LEFT JOIN DeveloperPosition DP ON D.DeveloperId = DP.DeveloperId

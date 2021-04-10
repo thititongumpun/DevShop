@@ -12,5 +12,6 @@ namespace devshops.Domain.Entities
         public DateTime JoinedDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdateDate { get; set; }
+        public string Status { get; set; }
     }
 }
