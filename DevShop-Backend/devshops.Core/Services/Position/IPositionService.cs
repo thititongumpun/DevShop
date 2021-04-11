@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace devshops.Services.Position
+namespace devshops.Core.Position
 {
     public interface IPositionService
     {

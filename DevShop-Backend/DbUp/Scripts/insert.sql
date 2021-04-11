@@ -1,1 +1,1 @@
-insert into DeveloperPosition values (1,1);
+INSERT INTO Positions VALUES ('Ux/Ui')

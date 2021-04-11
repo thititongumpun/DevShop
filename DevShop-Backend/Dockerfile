@@ -4,7 +4,7 @@ COPY *.sln .
 COPY devshops.Api/*.csproj ./devshops.Api/
 COPY devshops.Core/*.csproj ./devshops.Core/
 COPY devshops.Domain/*.csproj ./devshops.Domain/
-COPY devshops.Services/*.csproj ./devshops.Services/
+# COPY devshops.Services/*.csproj ./devshops.Services/
 
 RUN dotnet restore
 
@@ -12,7 +12,7 @@ RUN dotnet restore
 COPY devshops.Api/. ./devshops.Api/
 COPY devshops.Core/. ./devshops.Core/
 COPY devshops.Domain/. ./devshops.Domain/
-COPY devshops.Services/. ./devshops.Services/
+# COPY devshops.Services/. ./devshops.Services/
 
 WORKDIR /app/devshops.Api
 RUN dotnet publish -c Release -o out

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
+using devshops.Core.Developer;
 using devshops.Domain.Developer.ViewModels;
-using devshops.Services.Developer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace devshops.Api.Controllers

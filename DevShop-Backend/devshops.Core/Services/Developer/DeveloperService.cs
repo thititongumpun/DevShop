@@ -11,7 +11,7 @@ using devshops.Domain.Developer.ViewModels;
 using devshops.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 
-namespace devshops.Services.Developer
+namespace devshops.Core.Developer
 {
     public class DeveloperService : IDeveloperService
     {

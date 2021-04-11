@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using devshops.Domain.Developer.ViewModels;
 using devshops.Domain.Entities;
 
-namespace devshops.Services.Developer
+namespace devshops.Core.Developer
 {
     public interface IDeveloperService
     {

@@ -13,9 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using devshops.Core.Repository.Developer;
-using devshops.Services.Developer;
-using devshops.Services.Position;
 using devshops.Core.Repository.Position;
+using devshops.Core;
 
 namespace devshops.Api
 {
@@ -42,10 +41,7 @@ namespace devshops.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "devshops.Api", Version = "v1" });
             });
 
-            services.AddTransient<IDeveloperService, DeveloperService>();
-            services.AddTransient<IDeveloperRepository, DeveloperRepository>();
-            services.AddTransient<IPositionRepository, PositionRepository>();
-            services.AddTransient<IPositionService, PositionService>();
+            services.AddCoreInfrastructure(Configuration);
 
         }
 

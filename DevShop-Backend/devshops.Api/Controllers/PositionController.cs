@@ -1,5 +1,5 @@
-﻿using devshops.Domain.ViewModels.Position;
-using devshops.Services.Position;
+﻿using devshops.Core.Position;
+using devshops.Domain.ViewModels.Position;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
