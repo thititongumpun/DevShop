@@ -10,6 +10,15 @@ services:
       - SA_PASSWORD=UsRSQL#PV
     volumes:
       - mssql-data:/var/opt/mssql/
+  
+  dbup:
+    build:
+      context: DbUp/
+      dockerfile: Dockerfile
+    depends_on:
+      - mssql
+    environment:
+      connectionString: "Data Source=mssql;Initial Catalog=DevShops;User Id=SA;Password=UsRSQL#PV;"
 
   webapi:
     build:

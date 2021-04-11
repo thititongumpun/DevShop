@@ -1,0 +1,1 @@
+insert into DeveloperPosition values (1,1);
