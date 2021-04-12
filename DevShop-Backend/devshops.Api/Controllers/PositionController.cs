@@ -27,7 +27,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPosition(PositionCreateModel position)
+        public IActionResult AddPosition([FromBody] PositionCreateModel position)
         {
             _positionService.AddPosition(position);
             return Ok(position);

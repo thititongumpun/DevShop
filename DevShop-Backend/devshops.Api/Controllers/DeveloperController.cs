@@ -30,6 +30,7 @@ namespace devshops.Api.Controllers
         public async Task<ActionResult<DeveloperViewModel>> GetDeveloper(int id)
         {
             var developer = await _developerService.GetDeveloper(id);
+            _logger.LogInformation($"Geting developer {id}...");
             return Ok(developer);
         }
     }
