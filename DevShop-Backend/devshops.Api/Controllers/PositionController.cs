@@ -25,5 +25,12 @@ namespace devshops.Api.Controllers
             var position = await _positionService.GetAllPositions();
             return Ok(position);
         }
+
+        [HttpPost]
+        public IActionResult AddPosition(PositionCreateModel position)
+        {
+            _positionService.AddPosition(position);
+            return Ok(position);
+        }
     }
 }

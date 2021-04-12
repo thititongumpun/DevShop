@@ -12,10 +12,8 @@ namespace devshops.Domain.ViewModels.Position
         public string PositionName { get; set; }
     }
 
-    public class Position1Model
+    public class PositionCreateModel
     {
-        public int PositionId { get; set; }
-        public int DeveloperId { get; set; }
         public string PositionName { get; set; }
     }
 }

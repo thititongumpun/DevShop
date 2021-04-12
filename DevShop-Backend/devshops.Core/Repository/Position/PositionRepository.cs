@@ -45,5 +45,32 @@ namespace devshops.Core.Repository.Position
                 throw new Exception("Exception !!!", ex);
             }
         }
+
+        public void AddPosition(PositionCreateModel position)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var tran = dbConnection.BeginTransaction();
+                
+                try
+                {
+                    string sql = @"INSERT INTO PositionS (PositionName)
+                                VALUES (@PositionName)";
+
+                    dbConnection.Execute(sql, position, tran);
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw new Exception("Something wrong while insert position", ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
     }
 }

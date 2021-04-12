@@ -10,5 +10,6 @@ namespace devshops.Core.Repository.Position
     public interface IPositionRepository
     {
         Task<IEnumerable<PositionViewModel>> GetAllPositions();
+        void AddPosition(PositionCreateModel position);
     }
 }

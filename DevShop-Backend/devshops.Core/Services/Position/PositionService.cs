@@ -19,5 +19,10 @@ namespace devshops.Core.Position
         {
             return _positionRepository.GetAllPositions();
         }
+
+        public void AddPosition(PositionCreateModel position)
+        {
+            _positionRepository.AddPosition(position);
+        }
     }
 }
