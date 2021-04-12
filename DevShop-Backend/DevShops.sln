@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devshops.Core", "devshops.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devshops.Domain", "devshops.Domain\devshops.Domain.csproj", "{AB7A04BF-813D-442F-BC44-CE5873CD1609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devshops.Infrastructure", "devshops.Infrastructure\devshops.Infrastructure.csproj", "{3C441150-8348-44F4-8D71-386C004B19EF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,18 +55,6 @@ Global
 		{AB7A04BF-813D-442F-BC44-CE5873CD1609}.Release|x64.Build.0 = Release|Any CPU
 		{AB7A04BF-813D-442F-BC44-CE5873CD1609}.Release|x86.ActiveCfg = Release|Any CPU
 		{AB7A04BF-813D-442F-BC44-CE5873CD1609}.Release|x86.Build.0 = Release|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Debug|x64.Build.0 = Debug|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Debug|x86.Build.0 = Debug|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Release|x64.ActiveCfg = Release|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Release|x64.Build.0 = Release|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Release|x86.ActiveCfg = Release|Any CPU
-		{3C441150-8348-44F4-8D71-386C004B19EF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
