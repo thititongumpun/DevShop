@@ -64,7 +64,59 @@ namespace devshops.Core.Repository.Position
                 catch (Exception ex)
                 {
                     tran.Rollback();
-                    throw new Exception("Something wrong while insert position", ex);
+                    throw new Exception("Something Wrong While Insert Position", ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
+
+        public void UpdatePosition(PositionViewModel position)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var tran = dbConnection.BeginTransaction();
+
+                try
+                {
+                    string sql = @"UPDATE Positions SET PositionName=@PositionName WHERE PositionId=@PositionId";
+
+                    dbConnection.Execute(sql, position, tran);
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw new Exception("Something Wrong While Update Position", ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
+
+        public void DeletePosition(int id)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var tran = dbConnection.BeginTransaction();
+
+                try
+                {
+                    string sql = @"DELETE FROM Positions WHERE PositionId=@PositionId";
+
+                    dbConnection.Execute(sql, new { PositionId = id }, tran);
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw new Exception("Something Wrong While Update Position", ex);
                 }
                 finally
                 {

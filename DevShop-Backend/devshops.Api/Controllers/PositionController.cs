@@ -32,5 +32,19 @@ namespace devshops.Api.Controllers
             _positionService.AddPosition(position);
             return Ok(position);
         }
+
+        [HttpPut]
+        public IActionResult UpdatePosition([FromBody] PositionViewModel position)
+        {
+            _positionService.UpdatePosition(position);
+            return Ok(position);
+        }
+
+        [HttpDelete]
+        public IActionResult DeletePosition(int id)
+        {
+            _positionService.DeletePosition(id);
+            return NoContent();
+        }
     }
 }

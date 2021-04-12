@@ -24,5 +24,15 @@ namespace devshops.Core.Position
         {
             _positionRepository.AddPosition(position);
         }
+
+        public void UpdatePosition(PositionViewModel position)
+        {
+            _positionRepository.UpdatePosition(position);
+        }
+
+        public void DeletePosition(int id)
+        {
+            _positionRepository.DeletePosition(id);
+        }
     }
 }

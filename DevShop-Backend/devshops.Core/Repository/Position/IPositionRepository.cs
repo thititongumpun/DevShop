@@ -11,5 +11,7 @@ namespace devshops.Core.Repository.Position
     {
         Task<IEnumerable<PositionViewModel>> GetAllPositions();
         void AddPosition(PositionCreateModel position);
+        void UpdatePosition(PositionViewModel position);
+        void DeletePosition(int id);
     }
 }
