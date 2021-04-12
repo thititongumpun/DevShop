@@ -57,7 +57,7 @@ namespace devshops.Core.Repository.Developer
             }
             catch (Exception ex)
             {
-                throw new Exception("Exception !!!", ex);
+                throw new Exception("Something Wrong While Getting Developers", ex);
             }
         }
 
@@ -100,7 +100,7 @@ namespace devshops.Core.Repository.Developer
             }
             catch (Exception ex)
             {
-                throw new Exception("Exception !!!", ex);
+                throw new Exception("Something Wrong While Getting Developer", ex);
             }
         }
     }

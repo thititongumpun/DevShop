@@ -42,7 +42,7 @@ namespace devshops.Core.Repository.Position
             }
             catch (Exception ex)
             {
-                throw new Exception("Exception !!!", ex);
+                throw new Exception("Something Wrong While Select Positions", ex);
             }
         }
 
@@ -116,7 +116,7 @@ namespace devshops.Core.Repository.Position
                 catch (Exception ex)
                 {
                     tran.Rollback();
-                    throw new Exception("Something Wrong While Update Position", ex);
+                    throw new Exception("Something Wrong While Delete Position", ex);
                 }
                 finally
                 {
