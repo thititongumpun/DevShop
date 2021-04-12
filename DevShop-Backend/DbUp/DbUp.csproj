@@ -6,10 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\initdb.sql" />
+    <None Remove="Scripts\Script00001init.sql" />
+    <None Remove="Scripts\Script0002create-table.sql" />
+    <None Remove="Scripts\script0003insert.sql" />
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\initdb.sql" />
+    <EmbeddedResource Include="Scripts\Script00001init.sql" />
+    <EmbeddedResource Include="Scripts\Script0002create-table.sql" />
+    <EmbeddedResource Include="Scripts\script0003insert.sql" />
   </ItemGroup>
 
   <ItemGroup>

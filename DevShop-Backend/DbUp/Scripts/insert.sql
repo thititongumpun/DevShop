@@ -1,1 +1,0 @@
-INSERT INTO Positions VALUES ('Ux/Ui')
