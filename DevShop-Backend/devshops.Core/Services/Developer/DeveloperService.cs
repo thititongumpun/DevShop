@@ -22,12 +22,12 @@ namespace devshops.Core.Developer
             _developerRepository = developerRepository;
         }
 
-        public async Task<IEnumerable<DeveloperViewModel>> GetAllDevelopers()
+        public async Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers()
         {
             return await _developerRepository.GetAllDevelopers();
         }
 
-        public async Task<DeveloperViewModel> GetDeveloper(int id)
+        public async Task<DeveloperGroupModel> GetDeveloper(int id)
         {
             return await _developerRepository.GetDeveloper(id);
         }

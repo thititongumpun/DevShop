@@ -28,16 +28,35 @@ namespace devshops.Core.Repository.Position
             }
         }
 
-        public async Task<IEnumerable<PositionViewModel>> GetAllPositions()
+        public async Task<IEnumerable<PositionGroupModel>> GetAllPositions()
         {
             try
             {
                 using (IDbConnection dbConnection = Connection)
                 {
                     dbConnection.Open();
-                    string sql = @"SELECT * FROM Positions";
+                    string sql = @"SELECT P.PositionId, PositionName, D.DeveloperId,
+                                D.DeveloperName, D.Email, D.GithubUrl, D.ImageUrl, D.Status
+                                FROM Positions P
+                                LEFT JOIN DeveloperPosition DP
+                                ON P.PositionId = DP.PositionId
+                                LEFT JOIN Developers D
+                                ON DP.DeveloperId = D.DeveloperId;";
 
-                    return await dbConnection.QueryAsync<PositionViewModel>(sql);
+                    var positions = await dbConnection.QueryAsync<PositionGroupModel, DeveloperViewModel, PositionGroupModel>(sql, (position, developer) =>
+                    {
+                        position.Developers.Add(developer);
+                        return position;
+                    }, splitOn: "DeveloperId");
+                    var result = positions.GroupBy(p => p.PositionId).Select(g =>
+                    {
+                        var groupPosition = g.First();
+                        groupPosition.Developers = g.Select(p => p.Developers.Single()).ToList();
+                        return groupPosition;
+                    });
+
+                    return result;
+
                 }
             }
             catch (Exception ex)
@@ -122,6 +141,51 @@ namespace devshops.Core.Repository.Position
                 {
                     dbConnection.Close();
                 }
+            }
+        }
+
+        public async Task<PositionGroupModel> GetPositionById(int id)
+        {
+            try
+            {
+                Dictionary<int, PositionGroupModel> result = new Dictionary<int, PositionGroupModel>();
+
+                using (IDbConnection dbConnection = Connection)
+                {
+                    string sql = @"SELECT P.PositionId, PositionName,
+                                D.DeveloperId, DeveloperName, D.Email,
+                                D.GithubUrl, D.ImageUrl, D.Status
+                                FROM Positions P
+                                LEFT JOIN DeveloperPosition DP 
+                                ON P.PositionId = DP.PositionId
+                                LEFT JOIN Developers D
+                                ON DP.DeveloperId = D.DeveloperId
+                                WHERE P.PositionId = @id;";
+
+                    var developer = await dbConnection.QueryAsync<PositionGroupModel, DeveloperViewModel, PositionGroupModel>(sql, (position, developer) =>
+                    {
+                        if (!result.ContainsKey(position.PositionId))
+                        {
+                            result.Add(position.PositionId, position);
+                        }
+                        PositionGroupModel positionGroup = result[position.PositionId];
+                        positionGroup.Developers.Add(developer);
+                        return position;
+                    }, new { id }, splitOn: "DeveloperId");
+
+                    if (result.Values.Count > 0)
+                    {
+                        return result.Values.First();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something Wrong While Getting Position", ex);
             }
         }
     }

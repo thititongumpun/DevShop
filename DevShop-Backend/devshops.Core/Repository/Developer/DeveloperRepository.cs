@@ -27,7 +27,7 @@ namespace devshops.Core.Repository.Developer
                 return new SqlConnection(_config.GetConnectionString("DevShops"));
             }
         }
-        public async Task<IEnumerable<DeveloperViewModel>> GetAllDevelopers()
+        public async Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers()
         {
             try 
             {
@@ -41,7 +41,7 @@ namespace devshops.Core.Repository.Developer
                                 LEFT JOIN DeveloperPosition DP ON D.DeveloperId = DP.DeveloperId
                                 LEFT JOIN Positions P ON DP.PositionId = P.PositionId";
                     
-                    var developers = await dbConnection.QueryAsync<DeveloperViewModel, PositionViewModel, DeveloperViewModel>(sql, (developer, position) => 
+                    var developers = await dbConnection.QueryAsync<DeveloperGroupModel, PositionViewModel, DeveloperGroupModel>(sql, (developer, position) => 
                     {
                         developer.Positions.Add(position);
                         return developer;
@@ -61,31 +61,33 @@ namespace devshops.Core.Repository.Developer
             }
         }
 
-        public async Task<DeveloperViewModel> GetDeveloper(int id)
+        public async Task<DeveloperGroupModel> GetDeveloper(int id)
         {
             try
             {
-                Dictionary<int, DeveloperViewModel> result = new Dictionary<int, DeveloperViewModel>();
+                Dictionary<int, DeveloperGroupModel> result = new Dictionary<int, DeveloperGroupModel>();
 
                 using (IDbConnection dbConnection = Connection)
                 {
-                    string sql = @"SELECT D.*, P.*
+                    string sql = @"SELECT D.DeveloperId, D.DeveloperName,
+                                D.Email, D.GithubUrl, D.ImageUrl, D.Status,
+                                P.PositionId, P.PositionName
                                 FROM Developers D 
                                 LEFT JOIN DeveloperPosition DS
-                                ON D.DeveloperId = DS.DeveloperId
+                                 ON D.DeveloperId = DS.DeveloperId
                                 LEFT JOIN Positions P 
                                 ON DS.PositionId = P.PositionId
                                 WHERE D.DeveloperId = @id";
 
-                    var developer = await dbConnection.QueryAsync<DeveloperViewModel, PositionViewModel, DeveloperViewModel>(sql, (d, s) => 
+                    var developer = await dbConnection.QueryAsync<DeveloperGroupModel, PositionViewModel, DeveloperGroupModel>(sql, (developer, position) => 
                     {
-                        if (!result.ContainsKey(d.DeveloperId))
+                        if (!result.ContainsKey(developer.DeveloperId))
                         {
-                            result.Add(d.DeveloperId, d);
+                            result.Add(developer.DeveloperId, developer);
                         }
-                        DeveloperViewModel working = result[d.DeveloperId];
-                        working.Positions.Add(s);
-                        return d;
+                        DeveloperGroupModel developerGroup = result[developer.DeveloperId];
+                        developerGroup.Positions.Add(position);
+                        return developer;
                     }, new { id }, splitOn: "PositionId");
 
                     if (result.Values.Count > 0)
