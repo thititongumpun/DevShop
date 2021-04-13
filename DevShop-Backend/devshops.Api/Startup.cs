@@ -37,10 +37,7 @@ namespace devshops.Api
 
             services.AddHealthChecks();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "devshops.Api", Version = "v1" });
-            });
+            services.AddSwaggerDocumentation();
 
             services.AddCoreInfrastructure(Configuration);
 
@@ -56,17 +53,13 @@ namespace devshops.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "devshops.Api v1");
-                c.RoutePrefix = string.Empty;
-            });
-            
+            app.UseSwaggerDocumentation();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

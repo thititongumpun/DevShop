@@ -1,11 +1,13 @@
 using System.Threading.Tasks;
 using devshops.Core.Developer;
 using devshops.Domain.Developer.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace devshops.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DeveloperController : ControllerBase

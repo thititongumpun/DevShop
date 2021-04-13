@@ -13,5 +13,6 @@ namespace devshops.Domain.ViewModels.Auth
         public DateTime ValidFrom { get; set; }
         public DateTime Expiration { get; set; }
         public List<string> Errors { get; set; }
+        public IEnumerable<string> Roles { get; set; }
     }
 }

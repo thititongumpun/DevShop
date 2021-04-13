@@ -1,6 +1,7 @@
 ﻿using devshops.Domain.ViewModels.Auth;
 using devshops.Infrastructure.Config;
 using devshops.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace devshops.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -31,49 +33,7 @@ namespace devshops.Api.Controllers
             _config = config;
         }
 
-        [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
-        {
-            var userExist = await _userManager.FindByNameAsync(model.Username);
-            if (userExist != null)
-            {
-                return BadRequest(new RegisterResponse()
-                {
-                    Errors = new List<string>()
-                    {
-                        "User already Taken."
-                    },
-                    Success = false
-                });
-            }
-            ApplicationUser user = new ApplicationUser()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-            {
-                return BadRequest(new RegisterResponse()
-                {
-                    Errors = new List<string>()
-                    {
-                        "User creation failed! Please check user details and try again."
-                    },
-                    Success = false
-                });
-            }
-
-            return Ok(new RegisterResponse()
-            {
-                Username = user.UserName,
-                Email = user.Email,
-                Success = true
-            });
-        }
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
@@ -108,10 +68,120 @@ namespace devshops.Api.Controllers
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
                     Success = true,
                     ValidFrom = token.ValidFrom,
-                    Expiration = token.ValidTo
+                    Expiration = token.ValidTo,
+                    Roles = userRoles
                 });
             }
             return Unauthorized();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        {
+            var userExists = await _userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+            {
+                return BadRequest(new RegisterResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        "User already Taken."
+                    },
+                    Success = false
+                });
+            }
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Username
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new RegisterResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        "User creation failed! Please check user details and try again."
+                    },
+                    Success = false
+                });
+            }
+
+            if (!await _roleManager.RoleExistsAsync(Roles.Admin))
+                await _roleManager.CreateAsync(new IdentityRole(Roles.Admin));
+            if (!await _roleManager.RoleExistsAsync(Roles.User))
+                await _roleManager.CreateAsync(new IdentityRole(Roles.User));
+
+            if (await _roleManager.RoleExistsAsync(Roles.User))
+            {
+                await _userManager.AddToRoleAsync(user, Roles.User);
+            }
+
+            return Ok(new RegisterResponse()
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                Success = true,
+                Role = Roles.User
+            });
+        }
+
+        [HttpPost]
+        [Route("register-admin")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
+        {
+            var userExists = await _userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+            {
+                return BadRequest(new RegisterResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        "User already Taken."
+                    },
+                    Success = false
+                });
+            }
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Username
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new RegisterResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        "User creation failed! Please check user details and try again."
+                    },
+                    Success = false
+                });
+            }
+
+            if (!await _roleManager.RoleExistsAsync(Roles.Admin))
+                await _roleManager.CreateAsync(new IdentityRole(Roles.Admin));
+            if (!await _roleManager.RoleExistsAsync(Roles.User))
+                await _roleManager.CreateAsync(new IdentityRole(Roles.User));
+
+            if (await _roleManager.RoleExistsAsync(Roles.Admin))
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Admin);
+            }
+            return Ok(new RegisterResponse()
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                Success = true,
+                Role = Roles.Admin
+            });
         }
     }
 }

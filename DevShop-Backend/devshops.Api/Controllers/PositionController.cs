@@ -1,5 +1,7 @@
 ﻿using devshops.Core.Position;
 using devshops.Domain.ViewModels.Position;
+using devshops.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace devshops.Api.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class PositionController : ControllerBase
