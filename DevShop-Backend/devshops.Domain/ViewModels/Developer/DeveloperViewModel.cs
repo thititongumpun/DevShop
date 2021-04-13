@@ -9,12 +9,18 @@ namespace devshops.Domain.Developer.ViewModels
         public int DeveloperId { get; set; }
         public string DeveloperName { get; set; }
         public string Email { get; set; }
+        public string GithubUrl { get; set; }
+        public DateTime JoinedDate { get; set; }
+        public string Status { get; set; }
+    }
+    public class DeveloperGroupModel
+    {
+        public int DeveloperId { get; set; }
+        public string DeveloperName { get; set; }
+        public string Email { get; set; }
         public string GithubUrl { get; set; } 
         public DateTime JoinedDate { get; set; }
-
         public string Status { get; set; }
-        //public DateTime CreatedDate { get; set; }
-        //public DateTime UpdateDate { get; set; }
         public ICollection<PositionViewModel> Positions {get;set;} = new HashSet<PositionViewModel>();
-    }
+    }    
 }

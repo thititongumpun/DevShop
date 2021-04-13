@@ -15,7 +15,7 @@ namespace devshops.Core.Position
         {
             _positionRepository = positionRepository;
         }
-        public Task<IEnumerable<PositionViewModel>> GetAllPositions()
+        public Task<IEnumerable<PositionGroupModel>> GetAllPositions()
         {
             return _positionRepository.GetAllPositions();
         }

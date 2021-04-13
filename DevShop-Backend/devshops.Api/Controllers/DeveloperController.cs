@@ -21,7 +21,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<DeveloperViewModel>> GetAllDevelopers()
+        public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers()
         {
             var developers = await _developerService.GetAllDevelopers();
             _logger.LogInformation("Geting all developers ...");
@@ -29,7 +29,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DeveloperViewModel>> GetDeveloper(int id)
+        public async Task<ActionResult<DeveloperGroupModel>> GetDeveloper(int id)
         {
             var developer = await _developerService.GetDeveloper(id);
             _logger.LogInformation($"Geting developer {id}...");

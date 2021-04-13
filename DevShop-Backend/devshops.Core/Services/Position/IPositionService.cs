@@ -9,7 +9,7 @@ namespace devshops.Core.Position
 {
     public interface IPositionService
     {
-        Task<IEnumerable<PositionViewModel>> GetAllPositions();
+        Task<IEnumerable<PositionGroupModel>> GetAllPositions();
         void AddPosition(PositionCreateModel position);
         void UpdatePosition(PositionViewModel position);
         void DeletePosition(int id);

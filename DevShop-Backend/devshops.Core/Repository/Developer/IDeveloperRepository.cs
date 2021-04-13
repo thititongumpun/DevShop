@@ -7,7 +7,7 @@ namespace devshops.Core.Repository.Developer
 {
     public interface IDeveloperRepository
     {
-        Task<IEnumerable<DeveloperViewModel>> GetAllDevelopers();
-        Task<DeveloperViewModel> GetDeveloper(int id);
+        Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers();
+        Task<DeveloperGroupModel> GetDeveloper(int id);
     }
 }
