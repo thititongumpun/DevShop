@@ -39,7 +39,19 @@ namespace devshops.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            if (!await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                return BadRequest(new RegisterResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        "Wrong Username Or Password Please Try Again."
+                    },
+                    Success = false
+                });
+            }
+
+            if (user != null) 
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var authClaims = new List<Claim>
