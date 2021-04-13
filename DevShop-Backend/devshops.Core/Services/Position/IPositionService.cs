@@ -10,6 +10,7 @@ namespace devshops.Core.Position
     public interface IPositionService
     {
         Task<IEnumerable<PositionGroupModel>> GetAllPositions();
+        Task<PositionGroupModel> GetPositionById(int id);
         void AddPosition(PositionCreateModel position);
         void UpdatePosition(PositionViewModel position);
         void DeletePosition(int id);

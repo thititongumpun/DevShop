@@ -26,10 +26,18 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PositionViewModel>> GetAllPositions()
+        public async Task<ActionResult<PositionGroupModel>> GetAllPositions()
         {
-            var position = await _positionService.GetAllPositions();
+            var positions = await _positionService.GetAllPositions();
             _logger.LogInformation("Getting all Positions");
+            return Ok(positions);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PositionGroupModel>> GetAllPositions(int id)
+        {
+            var position = await _positionService.GetPositionById(id);
+            _logger.LogInformation($"Getting position {id}");
             return Ok(position);
         }
 

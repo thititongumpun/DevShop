@@ -36,7 +36,7 @@ namespace devshops.Core.Repository.Position
                 {
                     dbConnection.Open();
                     string sql = @"SELECT P.PositionId, PositionName, D.DeveloperId,
-                                D.DeveloperName, D.Email, D.GithubUrl, D.Status
+                                D.DeveloperName, D.Email, D.GithubUrl, D.ImageUrl, D.Status
                                 FROM Positions P
                                 LEFT JOIN DeveloperPosition DP
                                 ON P.PositionId = DP.PositionId
@@ -141,6 +141,51 @@ namespace devshops.Core.Repository.Position
                 {
                     dbConnection.Close();
                 }
+            }
+        }
+
+        public async Task<PositionGroupModel> GetPositionById(int id)
+        {
+            try
+            {
+                Dictionary<int, PositionGroupModel> result = new Dictionary<int, PositionGroupModel>();
+
+                using (IDbConnection dbConnection = Connection)
+                {
+                    string sql = @"SELECT P.PositionId, PositionName,
+                                D.DeveloperId, DeveloperName, D.Email,
+                                D.GithubUrl, D.ImageUrl, D.Status
+                                FROM Positions P
+                                LEFT JOIN DeveloperPosition DP 
+                                ON P.PositionId = DP.PositionId
+                                LEFT JOIN Developers D
+                                ON DP.DeveloperId = D.DeveloperId
+                                WHERE P.PositionId = @id;";
+
+                    var developer = await dbConnection.QueryAsync<PositionGroupModel, DeveloperViewModel, PositionGroupModel>(sql, (position, developer) =>
+                    {
+                        if (!result.ContainsKey(position.PositionId))
+                        {
+                            result.Add(position.PositionId, position);
+                        }
+                        PositionGroupModel positionGroup = result[position.PositionId];
+                        positionGroup.Developers.Add(developer);
+                        return position;
+                    }, new { id }, splitOn: "DeveloperId");
+
+                    if (result.Values.Count > 0)
+                    {
+                        return result.Values.First();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something Wrong While Getting Position", ex);
             }
         }
     }

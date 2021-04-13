@@ -15,9 +15,9 @@ namespace devshops.Core.Position
         {
             _positionRepository = positionRepository;
         }
-        public Task<IEnumerable<PositionGroupModel>> GetAllPositions()
+        public async Task<IEnumerable<PositionGroupModel>> GetAllPositions()
         {
-            return _positionRepository.GetAllPositions();
+            return await _positionRepository.GetAllPositions();
         }
 
         public void AddPosition(PositionCreateModel position)
@@ -33,6 +33,11 @@ namespace devshops.Core.Position
         public void DeletePosition(int id)
         {
             _positionRepository.DeletePosition(id);
+        }
+
+        public async Task<PositionGroupModel> GetPositionById(int id)
+        {
+            return await _positionRepository.GetPositionById(id);
         }
     }
 }

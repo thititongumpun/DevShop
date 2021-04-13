@@ -69,23 +69,25 @@ namespace devshops.Core.Repository.Developer
 
                 using (IDbConnection dbConnection = Connection)
                 {
-                    string sql = @"SELECT D.*, P.*
+                    string sql = @"SELECT D.DeveloperId, D.DeveloperName,
+                                D.Email, D.GithubUrl, D.ImageUrl, D.Status,
+                                P.PositionId, P.PositionName
                                 FROM Developers D 
                                 LEFT JOIN DeveloperPosition DS
-                                ON D.DeveloperId = DS.DeveloperId
+                                 ON D.DeveloperId = DS.DeveloperId
                                 LEFT JOIN Positions P 
                                 ON DS.PositionId = P.PositionId
                                 WHERE D.DeveloperId = @id";
 
-                    var developer = await dbConnection.QueryAsync<DeveloperGroupModel, PositionViewModel, DeveloperGroupModel>(sql, (d, s) => 
+                    var developer = await dbConnection.QueryAsync<DeveloperGroupModel, PositionViewModel, DeveloperGroupModel>(sql, (developer, position) => 
                     {
-                        if (!result.ContainsKey(d.DeveloperId))
+                        if (!result.ContainsKey(developer.DeveloperId))
                         {
-                            result.Add(d.DeveloperId, d);
+                            result.Add(developer.DeveloperId, developer);
                         }
-                        DeveloperGroupModel working = result[d.DeveloperId];
-                        working.Positions.Add(s);
-                        return d;
+                        DeveloperGroupModel developerGroup = result[developer.DeveloperId];
+                        developerGroup.Positions.Add(position);
+                        return developer;
                     }, new { id }, splitOn: "PositionId");
 
                     if (result.Values.Count > 0)
