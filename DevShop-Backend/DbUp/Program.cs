@@ -28,9 +28,9 @@ namespace DbUp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(result.Error);
                 Console.ResetColor();
-        
+
                 Console.ReadLine();
-                
+
                 return -1;
             }
 

@@ -7,16 +7,17 @@
 
   <ItemGroup>
     <None Remove="Scripts\Script0001create-table.sql" />
-    <None Remove="Scripts\script0002insert.sql" />
+    <None Remove="Scripts\Script0002-insert.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Scripts\Script0001create-table.sql" />
-    <EmbeddedResource Include="Scripts\script0002insert.sql" />
+    <EmbeddedResource Include="Scripts\Script0002-insert.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="dbup-core" Version="4.5.0" />
     <PackageReference Include="dbup-sqlserver" Version="4.5.0" />
   </ItemGroup>
+
 </Project>
