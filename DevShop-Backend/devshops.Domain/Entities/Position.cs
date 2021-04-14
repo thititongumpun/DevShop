@@ -4,7 +4,7 @@ using devshops.Domain.Common;
 
 namespace devshops.Domain.Entities
 {
-    public class Position  : AuditableEntity
+    public class Position
     {
         [Key]
         public int PositionId {get;set;}

@@ -29,9 +29,9 @@ namespace devshops.Core.Position
         }
 
         public void AddPosition(PositionCreateModel position)
-        {   
+        {
             position.Created = _dateTime.Now;
-            position.CreatedBy = _currentUserService.UserId;
+            position.CreatedBy = _currentUserService.Username;
             _positionRepository.AddPosition(position);
         }
 
