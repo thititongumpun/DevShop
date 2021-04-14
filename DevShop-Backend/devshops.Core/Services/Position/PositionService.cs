@@ -37,6 +37,8 @@ namespace devshops.Core.Position
 
         public void UpdatePosition(PositionViewModel position)
         {
+            position.LastModified = _dateTime.Now;
+            position.LastModifiedBy = _currentUserService.Username;
             _positionRepository.UpdatePosition(position);
         }
 

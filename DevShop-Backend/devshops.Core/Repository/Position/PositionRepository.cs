@@ -102,7 +102,9 @@ namespace devshops.Core.Repository.Position
 
                 try
                 {
-                    string sql = @"UPDATE Positions SET PositionName=@PositionName WHERE PositionId=@PositionId";
+                    string sql = @"UPDATE Positions SET PositionName = @PositionName,
+                                   LastModified = @LastModified, LastModifiedBy = @LastModifiedBy
+                                   WHERE PositionId=@PositionId";
 
                     dbConnection.Execute(sql, position, tran);
                     tran.Commit();

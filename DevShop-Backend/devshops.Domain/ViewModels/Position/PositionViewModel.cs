@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace devshops.Domain.ViewModels.Position
 {
-    public class PositionViewModel
+    public class PositionViewModel : AuditableEntity
     {
         public int PositionId { get; set; }
         public string PositionName { get; set; }
