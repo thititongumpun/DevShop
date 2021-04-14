@@ -16,7 +16,8 @@ services:
       context: DbUp/
       dockerfile: Dockerfile
     depends_on:
-      - mssql
+      - webapi
+    entrypoint: ["/wait-for-it.sh", "webapi:80", "-t", "120", "--", "dotnet", "DbUp.dll"]
     environment:
       connectionString: "Data Source=mssql;Initial Catalog=DevShops;User Id=SA;Password=UsRSQL#PV;"
 
@@ -28,6 +29,7 @@ services:
       - '5000:80'
     depends_on:
       - mssql
+    entrypoint: ["/wait-for-it.sh", "mssql:1433", "-t", "120", "--", "dotnet", "devshops.Api.dll"]
 
 volumes:
   mssql-data:
