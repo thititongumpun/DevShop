@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using devshops.Domain.Common;
 
 namespace devshops.Domain.Entities
 {
-    public class Position
+    public class Position  : AuditableEntity
     {
         [Key]
         public int PositionId {get;set;}

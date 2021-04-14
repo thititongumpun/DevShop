@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using devshops.Domain.Developer.ViewModels;
 using devshops.Domain.ViewModels.Position;
+using devshops.Infrastructure.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -74,8 +75,8 @@ namespace devshops.Core.Repository.Position
                 
                 try
                 {
-                    string sql = @"INSERT INTO PositionS (PositionName)
-                                VALUES (@PositionName)";
+                    string sql = @"INSERT INTO PositionS (PositionName, Created, CreatedBy)
+                                VALUES (@PositionName, @Created, @CreatedBy)";
 
                     dbConnection.Execute(sql, position, tran);
                     tran.Commit();
