@@ -16,6 +16,8 @@ using devshops.Core.Repository.Developer;
 using devshops.Core.Repository.Position;
 using devshops.Core;
 using devshops.Infrastructure;
+using devshops.Infrastructure.Interfaces;
+using devshops.Api.Services;
 
 namespace devshops.Api
 {
@@ -42,6 +44,11 @@ namespace devshops.Api
             services.AddCoreInfrastructure(Configuration);
 
             services.AddInfrastructure(Configuration);
+
+            services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+            services.AddHttpContextAccessor();
+
 
         }
 

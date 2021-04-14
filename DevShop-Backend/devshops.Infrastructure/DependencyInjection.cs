@@ -1,5 +1,7 @@
 ﻿using devshops.Infrastructure.Config;
 using devshops.Infrastructure.Identity;
+using devshops.Infrastructure.Interfaces;
+using devshops.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -52,6 +54,8 @@ namespace devshops.Infrastructure
                     RequireExpirationTime = false
                 };
             });
+
+            services.AddTransient<IDateTime, DateTimeService>();
 
             return services;
         }
