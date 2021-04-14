@@ -23,8 +23,13 @@ namespace devshops.Infrastructure
                         configuration.GetConnectionString("DevShops"),
                         b => b.MigrationsAssembly("devshops.Infrastructure")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => 
+            {
+                options.Password.RequiredLength = 5;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
 
