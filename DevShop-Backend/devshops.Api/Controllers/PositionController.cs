@@ -39,6 +39,11 @@ namespace devshops.Api.Controllers
         {
             var position = await _positionService.GetPositionById(id);
 
+            if (position == null)
+            {
+                return NotFound();
+            }
+
             _logger.LogInformation($"Getting position {id}");
             return Ok(position);
         }

@@ -8,7 +8,6 @@ using Dapper;
 using devshops.Core.Repository;
 using devshops.Core.Repository.Developer;
 using devshops.Domain.Developer.ViewModels;
-using devshops.Domain.Entities;
 using devshops.Infrastructure.Interfaces;
 using Microsoft.Extensions.Configuration;
 

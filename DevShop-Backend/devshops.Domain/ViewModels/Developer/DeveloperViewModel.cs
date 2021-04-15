@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using devshops.Domain.Common;
+using devshops.Domain.Entities;
 using devshops.Domain.ViewModels.Position;
 
 namespace devshops.Domain.Developer.ViewModels
@@ -22,7 +23,7 @@ namespace devshops.Domain.Developer.ViewModels
         public string GithubUrl { get; set; } 
         public DateTime JoinedDate { get; set; }
         public string Status { get; set; }
-        public ICollection<PositionViewModel> Positions {get;set;} = new HashSet<PositionViewModel>();
+        public ICollection<PositionModel> Positions {get;set;} = new HashSet<PositionModel>();
     }
 
     public class DeveloperCreateModel : AuditableEntity
