@@ -71,19 +71,19 @@ namespace devshops.Core.Repository.Position
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var tran = dbConnection.BeginTransaction();
+                var trans = dbConnection.BeginTransaction();
                 
                 try
                 {
                     string sql = @"INSERT INTO PositionS (PositionName, Created, CreatedBy)
                                 VALUES (@PositionName, @Created, @CreatedBy)";
 
-                    dbConnection.Execute(sql, position, tran);
-                    tran.Commit();
+                    dbConnection.Execute(sql, position, trans);
+                    trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    tran.Rollback();
+                    trans.Rollback();
                     throw new Exception("Something Wrong While Insert Position", ex);
                 }
                 finally
@@ -98,7 +98,7 @@ namespace devshops.Core.Repository.Position
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var tran = dbConnection.BeginTransaction();
+                var trans = dbConnection.BeginTransaction();
 
                 try
                 {
@@ -106,12 +106,12 @@ namespace devshops.Core.Repository.Position
                                    LastModified = @LastModified, LastModifiedBy = @LastModifiedBy
                                    WHERE PositionId=@PositionId";
 
-                    dbConnection.Execute(sql, position, tran);
-                    tran.Commit();
+                    dbConnection.Execute(sql, position, trans);
+                    trans.Commit();
                 }
                 catch (Exception ex)
                 {
-                    tran.Rollback();
+                    trans.Rollback();
                     throw new Exception("Something Wrong While Update Position", ex);
                 }
                 finally
@@ -130,7 +130,7 @@ namespace devshops.Core.Repository.Position
 
                 try
                 {
-                    string sql = @"DELETE FROM Positions WHERE PositionId=@PositionId";
+                    string sql = @"DELETE FROM Positions WHERE PositionId= @PositionId";
 
                     dbConnection.Execute(sql, new { PositionId = id }, tran);
                     tran.Commit();

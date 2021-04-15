@@ -30,6 +30,18 @@ namespace devshops.Core.Developer
             _currentUserService = currentUserService;
         }
 
+        public void AddDeveloper(DeveloperCreateModel developer)
+        {
+            developer.Created = _dateTime.Now;
+            developer.CreatedBy = _currentUserService.Username;
+            _developerRepository.AddDeveloper(developer);
+        }
+
+        public void DeleteDeveloper(int id)
+        {
+            _developerRepository.DeleteDeveloper(id);
+        }
+
         public async Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers()
         {
             return await _developerRepository.GetAllDevelopers();
@@ -38,6 +50,13 @@ namespace devshops.Core.Developer
         public async Task<DeveloperGroupModel> GetDeveloper(int id)
         {
             return await _developerRepository.GetDeveloper(id);
+        }
+
+        public void UpdateDeveloper(DeveloperViewModel developer)
+        {
+            developer.LastModified = _dateTime.Now;
+            developer.LastModifiedBy = _currentUserService.Username;
+            _developerRepository.UpdateDeveloper(developer);
         }
     }
 }

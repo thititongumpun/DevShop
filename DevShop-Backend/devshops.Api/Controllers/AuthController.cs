@@ -79,10 +79,9 @@ namespace devshops.Api.Controllers
                 {
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
                     Success = true,
-                    ValidFrom = token.ValidFrom,
                     Expiration = token.ValidTo,
                     Roles = userRoles
-                });
+                });;;
             }
             return Unauthorized();
         }

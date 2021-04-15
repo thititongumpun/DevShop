@@ -2,6 +2,7 @@
 using devshops.Domain.Developer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace devshops.Domain.ViewModels.Position
 
     public class PositionCreateModel : AuditableEntity
     {
+        [Required(ErrorMessage = "PositionName Is Required")]
         public string PositionName { get; set; }
     }
 

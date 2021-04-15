@@ -9,5 +9,8 @@ namespace devshops.Core.Repository.Developer
     {
         Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers();
         Task<DeveloperGroupModel> GetDeveloper(int id);
+        void AddDeveloper(DeveloperCreateModel developer);
+        void UpdateDeveloper(DeveloperViewModel developer);
+        void DeleteDeveloper(int id);
     }
 }

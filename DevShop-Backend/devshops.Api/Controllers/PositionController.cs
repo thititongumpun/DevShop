@@ -38,6 +38,7 @@ namespace devshops.Api.Controllers
         public async Task<ActionResult<PositionGroupModel>> GetAllPositions(int id)
         {
             var position = await _positionService.GetPositionById(id);
+
             _logger.LogInformation($"Getting position {id}");
             return Ok(position);
         }
@@ -58,7 +59,7 @@ namespace devshops.Api.Controllers
             return Ok(position);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeletePosition(int id)
         {
             _positionService.DeletePosition(id);

@@ -35,5 +35,29 @@ namespace devshops.Api.Controllers
             _logger.LogInformation($"Geting developer {id}...");
             return Ok(developer);
         }
+
+        [HttpPost]
+        public IActionResult AddDeveloper([FromBody] DeveloperCreateModel developer)
+        {
+            _developerService.AddDeveloper(developer);
+            _logger.LogInformation("Insert developer");
+            return Ok(developer);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateDeveloper([FromBody] DeveloperViewModel developer)
+        {
+            _developerService.UpdateDeveloper(developer);
+            _logger.LogInformation("Update developer");
+            return Ok(developer);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteDeveloper(int id)
+        {
+            _developerService.DeleteDeveloper(id);
+            _logger.LogInformation($"Delete developer {id}");
+            return NoContent();
+        }
     }
 }

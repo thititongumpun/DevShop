@@ -105,5 +105,88 @@ namespace devshops.Core.Repository.Developer
                 throw new Exception("Something Wrong While Getting Developer", ex);
             }
         }
+
+        public void AddDeveloper(DeveloperCreateModel developer)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var trans = dbConnection.BeginTransaction();
+
+                try
+                {
+                    string sql = @"INSERT INTO Developers (DeveloperName, Email, GithubUrl, ImageUrl, JoinedDate, Status,
+                                Created, CreatedBy) VALUES
+                                (@DeveloperName, @Email, @GithubUrl, @ImageUrl, @JoinedDate, @Status, @Created, @CreatedBy)";
+
+                    dbConnection.Execute(sql, developer, trans);
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw new Exception("Something Wrong While Insert Developer", ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
+
+        public void UpdateDeveloper(DeveloperViewModel developer)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var trans = dbConnection.BeginTransaction();
+
+                try
+                {
+                    string sql = @"UPDATE Developers SET DeveloperName = @DeveloperName,
+                                Email = @Email, GithubUrl = @GithubUrl, JoinedDate = @JoinedDate,
+                                Status = @Status, LastModified = @LastModified, LastModifiedBy = @LastModifiedBy
+                                WHERE DeveloperId = @DeveloperId";
+
+                    dbConnection.Execute(sql, developer, trans);
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw new Exception("Something wWrong While Update Developer", ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
+
+        public void DeleteDeveloper(int id)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var tran = dbConnection.BeginTransaction();
+
+                try
+                {
+                    string sql = @"DELETE FROM Developers WHERE DeveloperId = @DeveloperId";
+
+                    dbConnection.Execute(sql, new { DeveloperId = id }, tran);
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw new Exception($"Something Wrong While Delete Develoeper {id}", ex);
+                }
+                finally
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
     }
 }
