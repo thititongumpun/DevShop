@@ -1,5 +1,6 @@
 ﻿using devshops.Domain.Common;
 using devshops.Domain.Developer.ViewModels;
+using devshops.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,6 +26,6 @@ namespace devshops.Domain.ViewModels.Position
     {
         public int PositionId { get; set; }
         public string PositionName { get; set; }
-        public ICollection<DeveloperViewModel> Developers { get; set; } = new HashSet<DeveloperViewModel>();
+        public ICollection<DeveloperModel> Developers { get; set; } = new HashSet<DeveloperModel>();
     }
 }

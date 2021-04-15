@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using devshops.Domain.Developer.ViewModels;
+using devshops.Domain.Entities;
 using devshops.Domain.ViewModels.Position;
 using devshops.Infrastructure.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +45,7 @@ namespace devshops.Core.Repository.Position
                                 LEFT JOIN Developers D
                                 ON DP.DeveloperId = D.DeveloperId;";
 
-                    var positions = await dbConnection.QueryAsync<PositionGroupModel, DeveloperViewModel, PositionGroupModel>(sql, (position, developer) =>
+                    var positions = await dbConnection.QueryAsync<PositionGroupModel, DeveloperModel, PositionGroupModel>(sql, (position, developer) =>
                     {
                         position.Developers.Add(developer);
                         return position;
@@ -75,7 +76,7 @@ namespace devshops.Core.Repository.Position
                 
                 try
                 {
-                    string sql = @"INSERT INTO PositionS (PositionName, Created, CreatedBy)
+                    string sql = @"INSERT INTO Positions (PositionName, Created, CreatedBy)
                                 VALUES (@PositionName, @Created, @CreatedBy)";
 
                     dbConnection.Execute(sql, position, trans);
@@ -165,7 +166,7 @@ namespace devshops.Core.Repository.Position
                                 ON DP.DeveloperId = D.DeveloperId
                                 WHERE P.PositionId = @id;";
 
-                    var developer = await dbConnection.QueryAsync<PositionGroupModel, DeveloperViewModel, PositionGroupModel>(sql, (position, developer) =>
+                    var developer = await dbConnection.QueryAsync<PositionGroupModel, DeveloperModel, PositionGroupModel>(sql, (position, developer) =>
                     {
                         if (!result.ContainsKey(position.PositionId))
                         {

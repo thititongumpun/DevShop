@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace devshops.Domain.Entities
 {
-    public class Developer
+    public class DeveloperModel
     {
         public int DeveloperId {get;set;}
         public string DeveloperName {get;set; }

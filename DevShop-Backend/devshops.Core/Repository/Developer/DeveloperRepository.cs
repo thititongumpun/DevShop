@@ -41,7 +41,7 @@ namespace devshops.Core.Repository.Developer
                                 LEFT JOIN DeveloperPosition DP ON D.DeveloperId = DP.DeveloperId
                                 LEFT JOIN Positions P ON DP.PositionId = P.PositionId";
                     
-                    var developers = await dbConnection.QueryAsync<DeveloperGroupModel, PositionViewModel, DeveloperGroupModel>(sql, (developer, position) => 
+                    var developers = await dbConnection.QueryAsync<DeveloperGroupModel, PositionModel, DeveloperGroupModel>(sql, (developer, position) => 
                     {
                         developer.Positions.Add(position);
                         return developer;
@@ -79,7 +79,7 @@ namespace devshops.Core.Repository.Developer
                                 ON DS.PositionId = P.PositionId
                                 WHERE D.DeveloperId = @id";
 
-                    var developer = await dbConnection.QueryAsync<DeveloperGroupModel, PositionViewModel, DeveloperGroupModel>(sql, (developer, position) => 
+                    var developer = await dbConnection.QueryAsync<DeveloperGroupModel, PositionModel, DeveloperGroupModel>(sql, (developer, position) => 
                     {
                         if (!result.ContainsKey(developer.DeveloperId))
                         {

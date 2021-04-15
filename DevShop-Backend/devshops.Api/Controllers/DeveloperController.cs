@@ -39,7 +39,14 @@ namespace devshops.Api.Controllers
         public async Task<ActionResult<DeveloperGroupModel>> GetDeveloper(int id)
         {
             var developer = await _developerService.GetDeveloper(id);
+
+
+            if (developer == null)
+            {
+                return NotFound();
+            }
             _logger.LogInformation($"Getting developer {id} by {_currentUserService.Username}");
+
             return Ok(developer);
         }
 

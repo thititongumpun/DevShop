@@ -1,10 +1,10 @@
 namespace devshops.Domain.Entities
 {
-    public class DeveloperPosition
+    public class DeveloperPositionModel
     {
         public int? DeveloperId {get;set;}
-        public Developer Developer { get; set; }
+        public DeveloperModel Developer { get; set; }
         public int? PositionId {get;set;}
-        public Position Position {get;set;}
+        public PositionModel Position {get;set;}
     }
 }

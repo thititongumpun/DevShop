@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devshops.Core", "devshops.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devshops.Domain", "devshops.Domain\devshops.Domain.csproj", "{AB7A04BF-813D-442F-BC44-CE5873CD1609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devshops.Infrastructure", "devshops.Infrastructure\devshops.Infrastructure.csproj", "{1B3608BC-634D-4FA7-9DB1-93C131242F31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "devshops.Infrastructure", "devshops.Infrastructure\devshops.Infrastructure.csproj", "{1B3608BC-634D-4FA7-9DB1-93C131242F31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
