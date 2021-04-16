@@ -13,7 +13,7 @@ services:
   
   dbup:
     build:
-      context: DbUp/
+      context: DevShop-Backend/DbUp/
       dockerfile: Dockerfile
     depends_on:
       - webapi
@@ -23,7 +23,7 @@ services:
 
   webapi:
     build:
-      context: .
+      context: DevShop-Backend/
       dockerfile: Dockerfile
     ports:
       - '5000:80'
