@@ -5,8 +5,7 @@ import {
   StyledButton,
   ButtonGroup,
   StyledFormArea,
-  colors,
-  ExtraText,
+  colors
 } from "./../components/Styles";
 import Logo from '../assets/dev.png'
 

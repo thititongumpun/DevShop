@@ -5,10 +5,8 @@ import { FiUsers, FiLock } from 'react-icons/fi'
 import * as Yup from 'yup';
 import Loader from 'react-loader-spinner';
 import {
-  StyledTextInput,
   StyledFormArea,
   StyledFormButton,
-  StyledLabel,
   StyledTitle,
   colors,
   ButtonGroup,
