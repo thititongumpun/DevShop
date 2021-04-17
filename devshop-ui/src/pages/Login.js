@@ -1,7 +1,9 @@
 import React from 'react'
 import { Formik, Form } from 'formik';
 import { TextInput } from '../components/FormLib';
-import {FiUsers, FiLock} from 'react-icons/fi'
+import { FiUsers, FiLock } from 'react-icons/fi'
+import * as Yup from 'yup';
+import Loader from 'react-loader-spinner';
 import {
   StyledTextInput,
   StyledFormArea,
@@ -9,7 +11,10 @@ import {
   StyledLabel,
   StyledTitle,
   colors,
-  ButtonGroup
+  ButtonGroup,
+  ExtraText,
+  TextLink,
+  CopyrightText
 } from '../components/Styles';
 
 
@@ -20,8 +25,26 @@ export const Login = () => {
         <StyledTitle color={colors.theme} size={30}>
           Login
         </StyledTitle>
-        <Formik>
-          {() => (
+        <Formik
+          initialValues={{
+            username: '',
+            password: ''
+          }}
+          validationSchema={Yup.object({
+            username: Yup.string()
+              .min(5, 'Username is too long')
+              .max(30, 'Username is too long')
+              .required('Username Is Required'),
+            password: Yup.string()
+              .min(5, 'Password is too short')
+              .max(15, 'Password is too long')
+              .required('Password Is Required'),
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log(values);
+          }}
+        >
+          {({ isSubmitting  }) => (
             <Form>
               <TextInput
                 name="username"
@@ -38,13 +61,29 @@ export const Login = () => {
                 icon={<FiLock />}
               />
               <ButtonGroup>
-                <StyledFormButton type="submit" disabled={true}>
+                {!isSubmitting && (
+                <StyledFormButton type="submit">
                   Login
                 </StyledFormButton>
+                )}
+                {isSubmitting  && (
+                  <Loader
+                    type="Bars"
+                    color={colors.theme}
+                    height={40}
+                    width={100}
+                  />
+                )}
               </ButtonGroup>
             </Form>
           )}
         </Formik>
+        <ExtraText>
+            <TextLink to="/sigup">Sign Up</TextLink>
+        </ExtraText>
+        <CopyrightText>
+        &copy;
+      </CopyrightText>
       </StyledFormArea>
     </div>
   )
