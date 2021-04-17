@@ -49,7 +49,7 @@ namespace devshops.Api
 
             services.AddHttpContextAccessor();
 
-
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +65,8 @@ namespace devshops.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(u => u.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseAuthentication();
             app.UseAuthorization();
