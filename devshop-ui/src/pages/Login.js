@@ -4,6 +4,11 @@ import { TextInput } from '../components/FormLib';
 import { FiUsers, FiLock } from 'react-icons/fi'
 import * as Yup from 'yup';
 import Loader from 'react-loader-spinner';
+
+import { connect } from 'react-redux';
+import { loginUser } from '../auth/actions/auth';
+import { useHistory } from 'react-router-dom';
+
 import {
   StyledFormArea,
   StyledFormButton,
@@ -16,7 +21,8 @@ import {
 } from '../components/Styles';
 
 
-export const Login = () => {
+const Login = ({ loginUser }) => {
+  const history = useHistory();
   return (
     <div>
       <StyledFormArea>
@@ -38,11 +44,12 @@ export const Login = () => {
               .max(15, 'Password is too long')
               .required('Password Is Required'),
           })}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
+          onSubmit={(values, { setSubmitting, setFieldError }) => {
+            // console.log(values);
+            loginUser(values, history, setFieldError, setSubmitting);
           }}
         >
-          {({ isSubmitting  }) => (
+          {({ isSubmitting }) => (
             <Form>
               <TextInput
                 name="username"
@@ -60,11 +67,11 @@ export const Login = () => {
               />
               <ButtonGroup>
                 {!isSubmitting && (
-                <StyledFormButton type="submit">
-                  Login
-                </StyledFormButton>
+                  <StyledFormButton type="submit">
+                    Login
+                  </StyledFormButton>
                 )}
-                {isSubmitting  && (
+                {isSubmitting && (
                   <Loader
                     type="Bars"
                     color={colors.theme}
@@ -77,12 +84,14 @@ export const Login = () => {
           )}
         </Formik>
         <ExtraText>
-            <TextLink to="/signup">Sign Up</TextLink>
+          <TextLink to="/signup">Sign Up</TextLink>
         </ExtraText>
         <CopyrightText>
-        &copy;
+          &copy;
       </CopyrightText>
       </StyledFormArea>
     </div>
-  )
-}
+  );
+};
+
+export default connect(null, {loginUser})(Login);
