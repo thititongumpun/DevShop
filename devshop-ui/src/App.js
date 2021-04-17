@@ -1,8 +1,8 @@
 import { StyledContainer } from './components/Styles';
 import { Home } from './pages/Home';
-import Login  from './pages/Login';
-import { Signup} from './pages/Signup';
-import { Dashboard } from './pages/Dashboard';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 

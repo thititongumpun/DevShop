@@ -7,9 +7,14 @@ import {
   StyledFormArea,
   colors
 } from "./../components/Styles";
+
+import { connect } from 'react-redux';
+import { logoutUser } from '../auth/actions/auth';
+import {useHistory} from 'react-router-dom'
 import Logo from '../assets/dev.png'
 
-export const Dashboard = () => {
+const Dashboard = ({logoutUser, user}) => {
+  const history = useHistory();
   return (
     <div>
       <div
@@ -24,16 +29,18 @@ export const Dashboard = () => {
           justifyContent: "flex-start",
         }}
       >
-        <Avatar image={Logo}/>
+        <Avatar image={Logo} />
       </div>
       <StyledFormArea bg={colors.dark2}>
         <StyledTitle size={65}>Welcome Folk!</StyledTitle>
         <StyledSubTitle size={27}>Get Ready</StyledSubTitle>
-
         <ButtonGroup>
-          <StyledButton to="login">Logout</StyledButton>
+          <StyledButton to="login" onClick={() => logoutUser(history)}>Logout</StyledButton>
         </ButtonGroup>
       </StyledFormArea>
     </div>
   );
-}
+};
+
+export default connect(null, { logoutUser })(Dashboard);
+// const mapStateToProps = ({})
