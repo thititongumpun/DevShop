@@ -31,7 +31,7 @@ export const Dashboard = () => {
         <StyledSubTitle size={27}>Get Ready</StyledSubTitle>
 
         <ButtonGroup>
-          <StyledButton to="#">Logout</StyledButton>
+          <StyledButton to="login">Logout</StyledButton>
         </ButtonGroup>
       </StyledFormArea>
     </div>

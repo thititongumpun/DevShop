@@ -45,7 +45,6 @@ const Login = ({ loginUser }) => {
               .required('Password Is Required'),
           })}
           onSubmit={(values, { setSubmitting, setFieldError }) => {
-            // console.log(values);
             loginUser(values, history, setFieldError, setSubmitting);
           }}
         >
