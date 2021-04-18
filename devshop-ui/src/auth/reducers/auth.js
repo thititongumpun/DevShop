@@ -26,8 +26,7 @@ export default function (state = initialState, action)  {
     case REGISTER_FAIL:
       return {
         ...state,
-        isLoggedIn: false,
-        user: payload.user
+        isLoggedIn: false
       };
     case LOGIN_SUCCESS:
       return {
@@ -38,8 +37,7 @@ export default function (state = initialState, action)  {
     case LOGIN_FAIL:
       return {
         ...state,
-        isLoggedIn: false,
-        user: payload.user,
+        isLoggedIn: false
       };
     case LOGOUT:
       return {

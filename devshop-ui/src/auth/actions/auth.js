@@ -25,7 +25,6 @@ export const loginUser = (user, history, setFieldError, setSubmitting) => {
             if (data.Errors) {
               dispatch({
                 type: LOGIN_FAIL,
-                payload: { user: data },
               });
               setFieldError('password', data.Errors);
               console.error(data.Errors);
@@ -62,8 +61,7 @@ export const registerUser = (user, history, setFieldError, setSubmitting) => {
             if (data.Errors) {
 
               dispatch({
-                type: REGISTER_FAIL,
-                payload: {user: data},
+                type: REGISTER_FAIL
               })
 
               console.log(data.Errors);
