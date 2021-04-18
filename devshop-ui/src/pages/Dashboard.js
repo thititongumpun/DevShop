@@ -35,7 +35,7 @@ const Dashboard = ({logoutUser, user}) => {
         <StyledTitle size={65}>Welcome Folk!</StyledTitle>
         <StyledSubTitle size={27}>Get Ready</StyledSubTitle>
         <ButtonGroup>
-          <StyledButton to="login" onClick={() => logoutUser(history)}>Logout</StyledButton>
+          <StyledButton to="#" onClick={() => logoutUser(history)}>Logout</StyledButton>
         </ButtonGroup>
       </StyledFormArea>
     </div>

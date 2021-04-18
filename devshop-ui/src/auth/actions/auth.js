@@ -97,7 +97,7 @@ export const registerUser = (user, history, setFieldError, setSubmitting) => {
 export const logoutUser = (history) => {
   return (dispatch) => {
     localStorage.removeItem('user');
-    history.push('/login');
+    history.push('/');
 
     dispatch({
       type: LOGOUT,
