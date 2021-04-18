@@ -36,7 +36,7 @@ const Login = ({ loginUser }) => {
           }}
           validationSchema={Yup.object({
             username: Yup.string()
-              .min(5, 'Username is too long')
+              .min(5, 'Username is too short')
               .max(30, 'Username is too long')
               .required('Username Is Required'),
             password: Yup.string()

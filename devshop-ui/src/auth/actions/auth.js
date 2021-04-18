@@ -1,5 +1,12 @@
 import axios from 'axios';
-// import { REGISTER_SUCCESS } from './types';
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  SET_MESSAGE
+} from './types';
 
 const API_URL = 'http://localhost:5000/api/auth/';
 
@@ -8,7 +15,7 @@ const headers = {
 }
 
 export const loginUser = (user, history, setFieldError, setSubmitting) => {
-  return () => {
+  return (dispatch) => {
     axios
       .post(API_URL + 'login', user, headers)
         .then((response) => {
@@ -16,17 +23,31 @@ export const loginUser = (user, history, setFieldError, setSubmitting) => {
           console.log(data);
           if (data.Success === false) {
             if (data.Errors) {
+              dispatch({
+                type: LOGIN_FAIL,
+                payload: { user: data },
+              });
               setFieldError('password', data.Errors);
-              console.error(data.Errors[0]);
+              console.error(data.Errors);
             }
           } else if (data.Success === true) {
+              dispatch({
+              type: LOGIN_SUCCESS,
+              payload: { user: data },
+            });
             localStorage.clear();
             localStorage.setItem('user', JSON.stringify(data));
             history.push("/dashboard");
           }
           setSubmitting(false);
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          const { message } = err;
+          dispatch({
+            type: SET_MESSAGE,
+            payload: message
+          })
+        });
       }
     };
 
@@ -39,6 +60,12 @@ export const registerUser = (user, history, setFieldError, setSubmitting) => {
           console.log(data);
           if (data.Success === false) {
             if (data.Errors) {
+
+              dispatch({
+                type: REGISTER_FAIL,
+                payload: {user: data},
+              })
+
               console.log(data.Errors);
               setFieldError('username', data.Errors);
             } else if (data.Errors) {
@@ -46,22 +73,37 @@ export const registerUser = (user, history, setFieldError, setSubmitting) => {
             }
             setSubmitting(false);
           } else if (data.Success === true) {
+
+            dispatch({
+              type: REGISTER_SUCCESS,
+              payload: {user: data},
+            })
+
             const { username, password } = user;
 
             dispatch(
-              // { type: REGISTER_SUCCESS },
               loginUser({ username, password }, history, setFieldError, setSubmitting)
             );
           }
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          const { message } = err;
+          dispatch({
+            type: SET_MESSAGE,
+            payload: message
+          })
+        });
       }
     };
 
 export const logoutUser = (history) => {
-  return () => {
+  return (dispatch) => {
     localStorage.removeItem('user');
     history.push('/login');
+
+    dispatch({
+      type: LOGOUT,
+    });
   }
 };
 
