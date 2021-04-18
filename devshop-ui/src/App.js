@@ -7,29 +7,37 @@ import Dashboard from './pages/Dashboard';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import BasicRoute from './components/BasicRoute';
+import AuthRoute from './components/AuthRoute';
+import { connect } from 'react-redux';
 
-
-function App() {
+function App({isLoggedIn}) {
   return (
     <Router>
+      {isLoggedIn && (
       <StyledContainer>
         <Switch>
-          <Route path="/signup">
+          <BasicRoute path="/signup">
             <Signup />
-          </Route>
-          <Route path="/login">
+          </BasicRoute>
+          <BasicRoute path="/login">
             <Login />
-          </Route>
-          <Route path="/dashboard">
+          </BasicRoute>
+          <AuthRoute path="/dashboard">
             <Dashboard />
-          </Route>
+          </AuthRoute>
           <Route path="/">
             <Home />
           </Route>
         </Switch>
       </StyledContainer>
+      )}
     </Router>
   );
 }
 
-export default App;
+const mapStateToProps = ({ authentication }) => ({
+  isLoggedIn : authentication
+});
+
+export default connect(mapStateToProps)(App);

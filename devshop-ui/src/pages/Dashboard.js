@@ -34,6 +34,7 @@ const Dashboard = ({logoutUser, user}) => {
       <StyledFormArea bg={colors.dark2}>
         <StyledTitle size={65}>Welcome Folk!</StyledTitle>
         <StyledSubTitle size={27}>Get Ready</StyledSubTitle>
+        <StyledSubTitle size={20}>{user.Roles}</StyledSubTitle>
         <ButtonGroup>
           <StyledButton to="#" onClick={() => logoutUser(history)}>Logout</StyledButton>
         </ButtonGroup>
@@ -42,5 +43,8 @@ const Dashboard = ({logoutUser, user}) => {
   );
 };
 
-export default connect(null, { logoutUser })(Dashboard);
-// const mapStateToProps = ({})
+const mapStateToProps = ({ authentication }) => ({
+  user: authentication.user
+});
+
+export default connect(mapStateToProps, { logoutUser })(Dashboard);

@@ -1,15 +1,16 @@
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const AuthRoute = ({ children, isLoggedIn, ...rest }) => {
+const BasicRoute = ({ children, isLoggedIn, ...rest }) => {
   return (
     <Route
       {...rest}
       render={
-        ({location}) => isLoggedIn ? (children) : (
+        ({ location }) =>
+          !isLoggedIn ? (children) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/dashboard",
               state: {from: location}
             }}
           />
@@ -23,6 +24,4 @@ const mapStateToProps = ({ authentication }) => ({
   isLoggedIn: authentication.isLoggedIn
 });
 
-export default connect(mapStateToProps)(AuthRoute);
-
-// export default AuthRoute;
+export default connect(mapStateToProps)(BasicRoute);

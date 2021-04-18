@@ -106,7 +106,7 @@ const Signup = ({ registerUser }) => {
           )}
         </Formik>
         <ExtraText>
-          Already Have an Account ? <TextLink to="/login">Login</TextLink>
+          Already have an account ? <TextLink to="/login">Login</TextLink>
         </ExtraText>
         <CopyrightText>
           &copy;
