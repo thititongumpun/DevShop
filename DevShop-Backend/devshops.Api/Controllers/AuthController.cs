@@ -89,6 +89,7 @@ namespace devshops.Api.Controllers
 
                 return Ok(new LoginResponse()
                 {
+                    Username = model.Username,
                     Token = new JwtSecurityTokenHandler().WriteToken(token),
                     Success = true,
                     Expiration = token.ValidTo,

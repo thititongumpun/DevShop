@@ -32,9 +32,8 @@ const Dashboard = ({logoutUser, user}) => {
         <Avatar image={Logo} />
       </div>
       <StyledFormArea bg={colors.dark2}>
-        <StyledTitle size={65}>Welcome Folk!</StyledTitle>
-        <StyledSubTitle size={27}>Get Ready</StyledSubTitle>
-        <StyledSubTitle size={20}>{user.Roles}</StyledSubTitle>
+        <StyledTitle size={65}>Welcome {user.Username} !</StyledTitle>
+        <StyledSubTitle size={27}>Roles {user.Roles}</StyledSubTitle>
         <ButtonGroup>
           <StyledButton to="#" onClick={() => logoutUser(history)}>Logout</StyledButton>
         </ButtonGroup>
