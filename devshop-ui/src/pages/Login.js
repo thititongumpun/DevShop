@@ -83,7 +83,7 @@ const Login = ({ loginUser }) => {
           )}
         </Formik>
         <ExtraText>
-          <TextLink to="/signup">Sign Up</TextLink>
+          Dont have an account ? <TextLink to="/signup">Sign Up</TextLink>
         </ExtraText>
         <CopyrightText>
           &copy;
