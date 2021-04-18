@@ -39,13 +39,25 @@ namespace devshops.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
-            if (!await _userManager.CheckPasswordAsync(user, model.Password))
+
+            if (user == null)
             {
-                return BadRequest(new RegisterResponse()
+                return Ok(new LoginResponse()
                 {
                     Errors = new List<string>()
                     {
-                        "Wrong Username Or Password Please Try Again."
+                        $"Username {model.Username} not found please try again."
+                    }
+                });
+            }
+
+            if (!await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                return Ok(new LoginResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        "Wrong password please try again."
                     },
                     Success = false
                 });
@@ -92,17 +104,41 @@ namespace devshops.Api.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
+            var emailExists = await _userManager.FindByEmailAsync(model.Email);
+
+            if (userExists != null && emailExists != null)
             {
-                return BadRequest(new RegisterResponse()
+                return Ok(new RegisterResponse() 
                 {
                     Errors = new List<string>()
                     {
-                        "User already Taken."
+                        $"Username {model.Username} already taken.",
+                        $"Email {model.Email} already taken."
+                    }
+                });
+            }
+
+            if (userExists != null)
+            {
+                return Ok(new RegisterResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        $"Username {model.Username} already taken."
                     },
                     Success = false
                 });
             }
+            if (emailExists != null) {
+                return Ok(new RegisterResponse()
+                {
+                    Errors = new List<string>()
+                    {
+                        $"Email {model.Email} already taken."
+                    }
+                });
+            }
+
             ApplicationUser user = new ApplicationUser()
             {
                 Email = model.Email,

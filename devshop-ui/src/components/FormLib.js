@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useField } from 'formik';
-import { StyledTextInput, StyledLabel, StyledIcon } from './Styles';
+import { StyledTextInput, StyledLabel, StyledIcon, ErrorMsg } from './Styles';
 
 import { FiEyeOff, FiEye } from 'react-icons/fi';
 
@@ -9,24 +9,45 @@ export const TextInput = ({icon, ...props }) => {
   const [show, setShow] = useState(false);
   return (
     <div style={{position: "relative"}}>
-      <StyledLabel htmlFor={props.name}>
+      <StyledLabel
+        htmlFor={props.name}>
         {props.label}
       </StyledLabel>
-      <StyledTextInput
+
+      {props.type !== 'password' && (
+        <StyledTextInput
+        invalid={meta.touched && meta.error}
         {...field}
         {...props}
-      />
+        />
+      )}
+
+      {props.type === 'password' && (
+        <StyledTextInput
+          invalud={meta.touched && meta.error}
+          {...field}
+          {...props}
+          type={show ? 'text' : 'password'}
+        />
+      )}
+
       <StyledIcon>
         {icon}
       </StyledIcon>
 
       {
-        props.type === 'password' &&
+        props.type === 'password' && (
         <StyledIcon onClick={() => setShow(!show)} right>
           {show && <FiEye />}
           {!show && <FiEyeOff />}
         </StyledIcon>
-      }
+      )}
+
+        {meta.touched && meta.error ? (
+          <ErrorMsg>{meta.error}</ErrorMsg>
+        ) : (
+          <ErrorMsg style={{ visibility : "hidden"}}>.</ErrorMsg>
+        )}
     </div>
   );
 }

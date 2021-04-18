@@ -1,12 +1,12 @@
 import React from 'react'
 import { Formik, Form } from 'formik';
 import { TextInput } from '../components/FormLib';
-import { FiUsers, FiLock } from 'react-icons/fi'
+import { FiUsers, FiLock, FiMail } from 'react-icons/fi'
 import * as Yup from 'yup';
 import Loader from 'react-loader-spinner';
 
 import { connect } from 'react-redux';
-import { loginUser } from '../auth/actions/auth';
+import { registerUser } from '../auth/actions/auth';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -21,31 +21,40 @@ import {
 } from '../components/Styles';
 
 
-const Login = ({ loginUser }) => {
+const Signup = ({ registerUser }) => {
   const history = useHistory();
   return (
     <div>
       <StyledFormArea>
         <StyledTitle color={colors.theme} size={30}>
-          Login
+          Sign Up
         </StyledTitle>
         <Formik
           initialValues={{
             username: '',
-            password: ''
+            email: '',
+            password: '',
+            repeatPassword: ''
           }}
           validationSchema={Yup.object({
             username: Yup.string()
-              .min(5, 'Username is too short')
+              .min(5, 'Username is too long')
               .max(30, 'Username is too long')
               .required('Username Is Required'),
+            email: Yup.string()
+              .email('Invalid Email')
+              .required('Email Is Required'),
             password: Yup.string()
               .min(5, 'Password is too short')
               .max(15, 'Password is too long')
               .required('Password Is Required'),
+            repeatPassword: Yup.string()
+              .required('Repeat Password Is Required')
+              .oneOf([Yup.ref('password')], 'Password must match')
           })}
           onSubmit={(values, { setSubmitting, setFieldError }) => {
-            loginUser(values, history, setFieldError, setSubmitting);
+            console.log(values);
+            registerUser(values, history, setFieldError, setSubmitting);
           }}
         >
           {({ isSubmitting }) => (
@@ -58,16 +67,30 @@ const Login = ({ loginUser }) => {
                 icon={<FiUsers />}
               />
               <TextInput
+                name="email"
+                type="text"
+                label="Email"
+                placeholder="example@google.com"
+                icon={<FiMail />}
+              />
+              <TextInput
                 name="password"
                 type="password"
                 label="Password"
                 placeholder="*****"
                 icon={<FiLock />}
               />
+              <TextInput
+                name="repeatPassword"
+                type="password"
+                label="Repeat Password"
+                placeholder="*****"
+                icon={<FiLock />}
+              />
               <ButtonGroup>
                 {!isSubmitting && (
                   <StyledFormButton type="submit">
-                    Login
+                    Signup
                   </StyledFormButton>
                 )}
                 {isSubmitting && (
@@ -83,7 +106,7 @@ const Login = ({ loginUser }) => {
           )}
         </Formik>
         <ExtraText>
-          <TextLink to="/signup">Sign Up</TextLink>
+          Already Have an Account ? <TextLink to="/login">Login</TextLink>
         </ExtraText>
         <CopyrightText>
           &copy;
@@ -93,4 +116,4 @@ const Login = ({ loginUser }) => {
   );
 };
 
-export default connect(null, {loginUser})(Login);
+export default connect(null, { registerUser })(Signup);
