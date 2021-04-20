@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Weather from './pages/Weather';
-
+import Todo from './pages/Todo';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -18,6 +18,9 @@ function App({isLoggedIn}) {
       {isLoggedIn && (
       <StyledContainer>
         <Switch>
+          <Route path="/todo">
+            <Todo />
+          </Route>
           <Route path="/weather">
             <Weather />  
           </Route>  
