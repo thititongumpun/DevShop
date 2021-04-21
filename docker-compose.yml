@@ -31,8 +31,21 @@ services:
       - mssql
     entrypoint: ["/wait-for-it.sh", "mssql:1433", "-t", "120", "--", "dotnet", "devshops.Api.dll"]
 
+  seq:
+    image: datalust/seq
+    ports:
+      - 5341:80
+    depends_on:
+      - dbup
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - seq-data:/seq-data
+
 volumes:
-  mssql-data:
+  mssql-data: 
+  seq-data:
 
 
 

@@ -27,6 +27,7 @@ namespace devshops.Api
                 .WriteTo.Console(theme: AnsiConsoleTheme.Code)
                 .WriteTo.Debug(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.File("/Logs/log.txt", rollingInterval:RollingInterval.Day)
+                .WriteTo.Seq("http://172.24.0.5:5341/")
                 .CreateLogger();
 
             //Log.Logger.Information
