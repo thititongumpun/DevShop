@@ -20,11 +20,12 @@ namespace devshops.Core
         {
             services.AddTransient<IDeveloperRepository, DeveloperRepository>();
             services.AddTransient<IPositionRepository, PositionRepository>();
+            services.AddTransient<IDeveloperPositionRepository, DeveloperPositionRepository>();
+
             services.AddTransient<IDeveloperService, DeveloperService>();
             services.AddTransient<IPositionService, PositionService>();
-            services.AddTransient<IDeveloperPositionRepository, DeveloperPositionRepository>();
             services.AddTransient<IDeveloperPositionService, DeveloperPositionService>();
-
+            
             return services;
         }
     }

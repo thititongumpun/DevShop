@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Formatting.Compact;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace devshops.Api
 {
@@ -17,6 +20,16 @@ namespace devshops.Api
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console(new RenderedCompactJsonFormatter())
+                .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+                .WriteTo.Debug(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
+                .WriteTo.File("/Logs/log.txt", rollingInterval:RollingInterval.Day)
+                .CreateLogger();
+
+            //Log.Logger.Information
 
             using (var scope = host.Services.CreateScope())
             {
@@ -35,8 +48,7 @@ namespace devshops.Api
             await host.RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args).UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
