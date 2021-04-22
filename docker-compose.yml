@@ -10,6 +10,9 @@ services:
       - SA_PASSWORD=UsRSQL#PV
     volumes:
       - mssql-data:/var/opt/mssql/
+    networks:
+      dev-shop:
+        ipv4_address: 192.168.0.2
   
   dbup:
     build:
@@ -20,6 +23,9 @@ services:
     entrypoint: ["/wait-for-it.sh", "webapi:80", "-t", "120", "--", "dotnet", "DbUp.dll"]
     environment:
       connectionString: "Data Source=mssql;Initial Catalog=DevShops;User Id=SA;Password=UsRSQL#PV;"
+    networks:
+      dev-shop:
+        ipv4_address: 192.168.0.4
 
   webapi:
     build:
@@ -30,6 +36,9 @@ services:
     depends_on:
       - mssql
     entrypoint: ["/wait-for-it.sh", "mssql:1433", "-t", "120", "--", "dotnet", "devshops.Api.dll"]
+    networks:
+      dev-shop:
+        ipv4_address: 192.168.0.3
 
   seq:
     image: datalust/seq
@@ -42,10 +51,22 @@ services:
       - ACCEPT_EULA=Y
     volumes:
       - seq-data:/seq-data
+    networks:
+      dev-shop:
+        ipv4_address: 192.168.0.10
 
 volumes:
   mssql-data: 
   seq-data:
+
+networks:
+  dev-shop:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16
+          gateway: 192.168.0.254
+
 
 
 
