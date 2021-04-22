@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using devshops.Infrastructure.Identity;
@@ -20,6 +21,7 @@ namespace devshops.Api
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            var conn = GetSeqConnection();
 
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
@@ -27,7 +29,7 @@ namespace devshops.Api
                 .WriteTo.Console(theme: AnsiConsoleTheme.Code)
                 .WriteTo.Debug(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.File("/Logs/log.txt", rollingInterval:RollingInterval.Day)
-                .WriteTo.Seq("http://172.24.0.5:5341/")
+                .WriteTo.Seq(conn)
                 .CreateLogger();
 
             //Log.Logger.Information
@@ -54,5 +56,16 @@ namespace devshops.Api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static string GetSeqConnection()
+        {
+            var builder = new ConfigurationBuilder()
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            string seqConnection = builder.Build().GetSection("LogConfig").GetSection("seq").Value;
+
+            return seqConnection;
+        }
     }
 }
