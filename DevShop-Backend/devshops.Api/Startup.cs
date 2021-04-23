@@ -18,6 +18,7 @@ using devshops.Core;
 using devshops.Infrastructure;
 using devshops.Infrastructure.Interfaces;
 using devshops.Api.Services;
+using devshops.Infrastructure.Persistence;
 
 namespace devshops.Api
 {
@@ -47,18 +48,22 @@ namespace devshops.Api
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
+            services.AddSingleton<Seeder>();
+
             services.AddHttpContextAccessor();
 
             services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seeder seeder)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            seeder.SeedAdminUser();
 
             app.UseSwaggerDocumentation();
 
