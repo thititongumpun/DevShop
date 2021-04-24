@@ -33,9 +33,9 @@ namespace devshops.Infrastructure.Persistence
 
             var roleStore = new RoleStore<IdentityRole>(context);
 
-            if (!context.Roles.Any(r => r.Name == "admin"))
+            if (!context.Roles.Any(r => r.Name == "Admin"))
             {
-                await roleStore.CreateAsync(new IdentityRole { Name = "admin", NormalizedName = "admin" });
+                await roleStore.CreateAsync(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
             }
 
             if (!context.Users.Any(u => u.UserName == user.UserName))
@@ -45,7 +45,7 @@ namespace devshops.Infrastructure.Persistence
                 user.PasswordHash = hashed;
                 var userStore = new UserStore<ApplicationUser>(context);
                 await userStore.CreateAsync(user);
-                await userStore.AddToRoleAsync(user, "admin");
+                await userStore.AddToRoleAsync(user, "Admin");
             }
 
             await context.SaveChangesAsync();
