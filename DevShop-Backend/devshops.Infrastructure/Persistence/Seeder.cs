@@ -21,7 +21,7 @@ namespace devshops.Infrastructure.Persistence
 
         public async void SeedAdminUser()
         {
-            var user = new ApplicationUser
+            var admin = new ApplicationUser
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = "Admin",
@@ -31,21 +31,37 @@ namespace devshops.Infrastructure.Persistence
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 
+            var user = new ApplicationUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "User1",
+                NormalizedUserName = "USER1",
+                Email = "USER1@localhost.com",
+                NormalizedEmail = "USER1@LOCALHOST.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
             var roleStore = new RoleStore<IdentityRole>(context);
 
-            if (!context.Roles.Any(r => r.Name == "Admin"))
+            if (!context.Roles.Any())
             {
-                await roleStore.CreateAsync(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
+                await roleStore.CreateAsync(new IdentityRole { Name = Roles.Admin, NormalizedName = Roles.Admin });
+                await roleStore.CreateAsync(new IdentityRole { Name = Roles.User, NormalizedName = Roles.User });
             }
 
-            if (!context.Users.Any(u => u.UserName == user.UserName))
+            if (!context.Users.Any())
             {
                 var password = new PasswordHasher<ApplicationUser>();
-                var hashed = password.HashPassword(user, "12345");
-                user.PasswordHash = hashed;
+                var hashedAdmin = password.HashPassword(admin, "12345");
+                admin.PasswordHash = hashedAdmin;
                 var userStore = new UserStore<ApplicationUser>(context);
+                await userStore.CreateAsync(admin);
+                await userStore.AddToRoleAsync(admin, Roles.Admin);
+
+                var hashedUser = password.HashPassword(user, "12345");
+                user.PasswordHash = hashedUser;
                 await userStore.CreateAsync(user);
-                await userStore.AddToRoleAsync(user, "Admin");
+                await userStore.AddToRoleAsync(user, Roles.User);
             }
 
             await context.SaveChangesAsync();
