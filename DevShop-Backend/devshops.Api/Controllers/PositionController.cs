@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace devshops.Api.Controllers
 {
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PositionController : ControllerBase

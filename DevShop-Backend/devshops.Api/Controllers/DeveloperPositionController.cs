@@ -1,6 +1,8 @@
 ﻿using devshops.Core.Repository.DeveloperPosition;
 using devshops.Core.Services.DeveloperPosition;
 using devshops.Domain.ViewModels.DeveloperPositionViewModel;
+using devshops.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace devshops.Api.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class DeveloperPositionController : ControllerBase
