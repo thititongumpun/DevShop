@@ -15,15 +15,15 @@ namespace devshops.Api.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching", "Very Hot"
+        };
+
+        private static readonly string[] Locations = new[]
+        {
+            "Bangkok", "Nonthaburi", "Rangsit", "Don mueang"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
