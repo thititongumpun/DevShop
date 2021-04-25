@@ -21,6 +21,7 @@ namespace devshops.Api
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+
             var conn = GetSeqConnection();
 
             Log.Logger = new LoggerConfiguration()
