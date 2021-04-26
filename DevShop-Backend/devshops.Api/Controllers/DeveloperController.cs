@@ -31,7 +31,7 @@ namespace devshops.Api.Controllers
         public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers()
         {
             var developers = await _developerService.GetAllDevelopers();
-            _logger.LogInformation($"Geting all developers by {_currentUserService.Username}");
+            _logger.LogInformation($"Geting all {developers} by {_currentUserService.Username}");
             return Ok(developers);
         }
 
