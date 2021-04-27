@@ -1,6 +1,7 @@
 ﻿using devshops.Infrastructure.Config;
 using devshops.Infrastructure.Identity;
 using devshops.Infrastructure.Interfaces;
+using devshops.Infrastructure.Redis;
 using devshops.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Text;
 
 namespace devshops.Infrastructure
@@ -87,6 +89,23 @@ namespace devshops.Infrastructure
                     }
                 });
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddRedisCache(this IServiceCollection services, IConfiguration configuration)
+        {
+            var redisCacheSettings = new RedisCacheSettings();
+            configuration.GetSection(nameof(redisCacheSettings)).Bind(redisCacheSettings);
+            services.AddSingleton(redisCacheSettings);
+
+            if (!redisCacheSettings.Enable)
+            {
+                throw new Exception("Error connecting redis");
+            }
+
+            services.AddStackExchangeRedisCache(options => options.Configuration = redisCacheSettings.ConnectionString);
+            services.AddSingleton<IResponseCacheService, ResponseCacheService>();
 
             return services;
         }
