@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import BasicRoute from './components/BasicRoute';
 import AuthRoute from './components/AuthRoute';
 import { connect } from 'react-redux';
+import { Exchange } from './pages/ExchangeRate';
 
 function App({isLoggedIn}) {
   return (
@@ -18,6 +19,9 @@ function App({isLoggedIn}) {
       {isLoggedIn && (
       <StyledContainer>
         <Switch>
+          <Route path="/exchange">
+            <Exchange />
+          </Route>    
           <Route path="/todo">
             <Todo />
           </Route>

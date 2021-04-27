@@ -38,6 +38,7 @@ const Dashboard = ({logoutUser, user}) => {
           <StyledButton to="#" onClick={() => logoutUser(history)}>Logout</StyledButton>
           <StyledButton to="/weather">WeatherForeCast</StyledButton>
           <StyledButton to="/todo">Todo</StyledButton>
+          <StyledButton to="/Exchange">Exchange Rate</StyledButton>
         </ButtonGroup>
       </StyledFormArea>
     </div>
