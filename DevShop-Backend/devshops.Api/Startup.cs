@@ -46,6 +46,8 @@ namespace devshops.Api
 
             services.AddInfrastructure(Configuration);
 
+            services.AddRedisCache(Configuration);
+
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
             services.AddSingleton<Seeder>();

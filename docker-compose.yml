@@ -55,6 +55,14 @@ services:
       dev-shop:
         ipv4_address: 192.168.0.10
 
+  redis:
+    image: redis:alpine
+    depends_on:
+      - webapi
+    networks:
+      dev-shop:
+        ipv4_address: 192.168.0.5
+
 volumes:
   mssql-data: 
   seq-data:
