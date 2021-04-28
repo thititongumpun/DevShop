@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using devshops.Api.Filter;
 using devshops.Core.Developer;
 using devshops.Domain.Developer.ViewModels;
 using devshops.Infrastructure.Interfaces;
@@ -28,6 +29,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet]
+        [Cached(600)]
         public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers()
         {
             var developers = await _developerService.GetAllDevelopers();
@@ -36,6 +38,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Cached(600)]
         public async Task<ActionResult<DeveloperGroupModel>> GetDeveloper(int id)
         {
             var developer = await _developerService.GetDeveloper(id);

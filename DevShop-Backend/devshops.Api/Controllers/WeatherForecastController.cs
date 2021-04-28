@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using devshops.Api.Filter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace devshops.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -26,6 +27,7 @@ namespace devshops.Api.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
 
         [HttpGet]
+        [Cached(600)]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

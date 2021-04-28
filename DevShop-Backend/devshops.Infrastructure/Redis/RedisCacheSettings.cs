@@ -8,7 +8,7 @@ namespace devshops.Infrastructure.Redis
 {
     public class RedisCacheSettings
     {
-        public bool Enable { get; set; }
+        public bool Enabled { get; set; }
         public string ConnectionString { get; set; }
     }
 }
