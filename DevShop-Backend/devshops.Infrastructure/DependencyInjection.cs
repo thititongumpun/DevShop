@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 using System;
 using System.Text;
 
@@ -96,14 +97,15 @@ namespace devshops.Infrastructure
         public static IServiceCollection AddRedisCache(this IServiceCollection services, IConfiguration configuration)
         {
             var redisCacheSettings = new RedisCacheSettings();
-            configuration.GetSection(nameof(redisCacheSettings)).Bind(redisCacheSettings);
+            configuration.GetSection(nameof(RedisCacheSettings)).Bind(redisCacheSettings);
             services.AddSingleton(redisCacheSettings);
 
-            if (!redisCacheSettings.Enable)
+            if (!redisCacheSettings.Enabled)
             {
-                throw new Exception("Error connecting redis");
+                return services;
             }
 
+            services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(redisCacheSettings.ConnectionString));
             services.AddStackExchangeRedisCache(options => options.Configuration = redisCacheSettings.ConnectionString);
             services.AddSingleton<IResponseCacheService, ResponseCacheService>();
 

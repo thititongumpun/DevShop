@@ -38,6 +38,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Cached(600)]
         public async Task<ActionResult<DeveloperGroupModel>> GetDeveloper(int id)
         {
             var developer = await _developerService.GetDeveloper(id);

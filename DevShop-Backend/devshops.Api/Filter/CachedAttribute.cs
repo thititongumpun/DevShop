@@ -23,7 +23,7 @@ namespace devshops.Api.Filter
         {
             var cacheSettings = context.HttpContext.RequestServices.GetRequiredService<RedisCacheSettings>();
 
-            if (cacheSettings.Enable)
+            if (!cacheSettings.Enabled)
             {
                 await next();
                 return;
