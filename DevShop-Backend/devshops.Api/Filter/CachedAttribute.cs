@@ -31,7 +31,7 @@ namespace devshops.Api.Filter
 
             var cacheService = context.HttpContext.RequestServices.GetRequiredService<IResponseCacheService>();
 
-            var cacheKey = GenerateCacheKeyFromRequire(context.HttpContext.Request);
+            var cacheKey = GenerateCacheKeyFromRequest(context.HttpContext.Request);
 
             var cachedResponse = await cacheService.GetCachedResponseAsync(cacheKey);
 
@@ -56,7 +56,7 @@ namespace devshops.Api.Filter
             
         }
 
-        private static string GenerateCacheKeyFromRequire(HttpRequest request)
+        private static string GenerateCacheKeyFromRequest(HttpRequest request)
         {
             var keyBuilder = new StringBuilder();
 
