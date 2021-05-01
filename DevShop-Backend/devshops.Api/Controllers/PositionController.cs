@@ -1,4 +1,5 @@
-﻿using devshops.Core.Position;
+﻿using devshops.Api.Filter;
+using devshops.Core.Position;
 using devshops.Domain.ViewModels.Position;
 using devshops.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +28,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet]
+        [Cached(600)]
         public async Task<ActionResult<PositionGroupModel>> GetAllPositions()
         {
             var positions = await _positionService.GetAllPositions();
@@ -35,6 +37,7 @@ namespace devshops.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Cached(600)]
         public async Task<ActionResult<PositionGroupModel>> GetAllPositions(int id)
         {
             var position = await _positionService.GetPositionById(id);
