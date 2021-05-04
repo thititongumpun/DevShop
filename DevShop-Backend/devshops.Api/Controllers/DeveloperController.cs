@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace devshops.Api.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DeveloperController : ControllerBase
@@ -18,8 +18,8 @@ namespace devshops.Api.Controllers
         protected readonly ILogger<DeveloperController> _logger;
         protected readonly ICurrentUserService _currentUserService;
         public DeveloperController(
-            IDeveloperService developerService, 
-            ILogger<DeveloperController> logger, 
+            IDeveloperService developerService,
+            ILogger<DeveloperController> logger,
             ICurrentUserService currentUserService
             )
         {
@@ -28,12 +28,12 @@ namespace devshops.Api.Controllers
             _currentUserService = currentUserService;
         }
 
-        [HttpGet]
+        [HttpGet("{page}/{pageSize}")]
         [Cached(600)]
-        public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers()
+        public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers(int page, int pageSize)
         {
-            var developers = await _developerService.GetAllDevelopers();
-            _logger.LogInformation($"Geting all {developers} by {_currentUserService.Username}");
+            var developers = await _developerService.GetAllDeveloperPage(page, pageSize);
+            _logger.LogInformation($"Geting all {developers} page {page} by {_currentUserService.Username}");
             return Ok(developers);
         }
 

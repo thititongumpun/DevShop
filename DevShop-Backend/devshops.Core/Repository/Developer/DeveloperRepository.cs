@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using devshops.Domain.Common;
 using devshops.Domain.Developer.ViewModels;
 using devshops.Domain.Entities;
 using devshops.Domain.ViewModels.Position;
@@ -27,6 +28,8 @@ namespace devshops.Core.Repository.Developer
                 return new SqlConnection(_config.GetConnectionString("DevShops"));
             }
         }
+
+        #region || GETALL ||
         public async Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers()
         {
             try 
@@ -60,6 +63,51 @@ namespace devshops.Core.Repository.Developer
                 throw new Exception("Something Wrong While Getting Developers", ex);
             }
         }
+
+        #endregion
+
+        #region || Pagination ||
+        public async Task<IEnumerable<DeveloperGroupModel>> GetAllDeveloperPage(int page=1, int pageSize=10)
+        {
+            IEnumerable<DeveloperGroupModel> results;
+            try
+            {
+                using (IDbConnection dbConnection = Connection)
+                {
+                    dbConnection.Open();
+                    string sql = @"SELECT D.DeveloperId, D.DeveloperName, D.Email,
+                                D.GithubUrl, D.JoinedDate, D.Status,
+                                P.PositionId, P.PositionName
+                                FROM Developers D
+                                LEFT JOIN DeveloperPosition DP ON D.DeveloperId = DP.DeveloperId
+                                LEFT JOIN Positions P ON DP.PositionId = P.PositionId
+                                ORDER BY d.DeveloperId
+                                OFFSET @offset ROWS
+                                FETCH NEXT @PageSize ROWS ONLY";
+
+                    var developers = await dbConnection.QueryAsync<DeveloperGroupModel, PositionModel, DeveloperGroupModel>(sql, (developer, position) =>
+                    {
+                        developer.Positions.Add(position);
+                        return developer;
+                    },
+                    new { Offset = (page - 1) * pageSize, 
+                        Pagesize = pageSize },
+                    splitOn: "PositionId");
+                    results = developers.GroupBy(d => d.DeveloperId).Select(g =>
+                    {
+                        var groupDeveloper = g.First();
+                        groupDeveloper.Positions = g.Select(d => d.Positions.Single()).ToList();
+                        return groupDeveloper;
+                    });
+                    return results;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something Wrong While Getting Developers", ex);
+            }
+        }
+        #endregion
 
         public async Task<DeveloperGroupModel> GetDeveloper(int id)
         {

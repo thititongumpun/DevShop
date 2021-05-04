@@ -6,6 +6,7 @@ namespace devshops.Core.Repository.Developer
 {
     public interface IDeveloperRepository
     {
+        Task<IEnumerable<DeveloperGroupModel>> GetAllDeveloperPage(int page, int pageSize ); 
         Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers();
         Task<DeveloperGroupModel> GetDeveloper(int id);
         void AddDeveloper(DeveloperCreateModel developer);
