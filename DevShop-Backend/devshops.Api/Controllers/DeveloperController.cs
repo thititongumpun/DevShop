@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using devshops.Api.Filter;
 using devshops.Core.Developer;
 using devshops.Domain.Developer.ViewModels;
+using devshops.Domain.Helpers;
 using devshops.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace devshops.Api.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DeveloperController : ControllerBase
@@ -18,8 +19,8 @@ namespace devshops.Api.Controllers
         protected readonly ILogger<DeveloperController> _logger;
         protected readonly ICurrentUserService _currentUserService;
         public DeveloperController(
-            IDeveloperService developerService, 
-            ILogger<DeveloperController> logger, 
+            IDeveloperService developerService,
+            ILogger<DeveloperController> logger,
             ICurrentUserService currentUserService
             )
         {
@@ -30,9 +31,9 @@ namespace devshops.Api.Controllers
 
         [HttpGet]
         [Cached(600)]
-        public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers()
+        public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers([FromQuery] PageParameters pageParameters)
         {
-            var developers = await _developerService.GetAllDevelopers();
+            var developers = await _developerService.GetAllDeveloperPage(pageParameters.PageNumber, pageParameters.PageSize);
             _logger.LogInformation($"Geting all {developers} by {_currentUserService.Username}");
             return Ok(developers);
         }

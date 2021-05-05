@@ -41,6 +41,11 @@ namespace devshops.Core.Developer
             _developerRepository.DeleteDeveloper(id);
         }
 
+        public async Task<IEnumerable<DeveloperGroupModel>> GetAllDeveloperPage(int page, int pageSize)
+        {
+            return await _developerRepository.GetAllDeveloperPage(page, pageSize);
+        }
+
         public async Task<IEnumerable<DeveloperGroupModel>> GetAllDevelopers()
         {
             return await _developerRepository.GetAllDevelopers();
