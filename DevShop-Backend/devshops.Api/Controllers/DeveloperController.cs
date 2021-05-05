@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using devshops.Api.Filter;
 using devshops.Core.Developer;
 using devshops.Domain.Developer.ViewModels;
+using devshops.Domain.Helpers;
 using devshops.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,12 +29,12 @@ namespace devshops.Api.Controllers
             _currentUserService = currentUserService;
         }
 
-        [HttpGet("{page}/{pageSize}")]
+        [HttpGet]
         [Cached(600)]
-        public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers(int page, int pageSize)
+        public async Task<ActionResult<DeveloperGroupModel>> GetAllDevelopers([FromQuery] PageParameters pageParameters)
         {
-            var developers = await _developerService.GetAllDeveloperPage(page, pageSize);
-            _logger.LogInformation($"Geting all {developers} page {page} by {_currentUserService.Username}");
+            var developers = await _developerService.GetAllDeveloperPage(pageParameters.PageNumber, pageParameters.PageSize);
+            _logger.LogInformation($"Geting all {developers} by {_currentUserService.Username}");
             return Ok(developers);
         }
 
