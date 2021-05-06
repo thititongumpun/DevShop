@@ -53,7 +53,7 @@ namespace devshops.Core.Repository.Position
                     var result = positions.GroupBy(p => p.PositionId).Select(g =>
                     {
                         var groupPosition = g.First();
-                        groupPosition.Developers = g.Select(p => p.Developers.Single()).ToList();
+                        groupPosition.Developers = g.Select(p => p.Developers.FirstOrDefault()).ToList();
                         return groupPosition;
                     });
 

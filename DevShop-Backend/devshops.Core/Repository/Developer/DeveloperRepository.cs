@@ -52,7 +52,7 @@ namespace devshops.Core.Repository.Developer
                     var result = developers.GroupBy(d => d.DeveloperId).Select(g => 
                     {
                         var groupDeveloper = g.First();
-                        groupDeveloper.Positions = g.Select(d => d.Positions.Single()).ToList();
+                        groupDeveloper.Positions = g.Select(d => d.Positions.FirstOrDefault()).ToList();
                         return groupDeveloper;
                     });
                     return result;
@@ -96,7 +96,7 @@ namespace devshops.Core.Repository.Developer
                     results = developers.GroupBy(d => d.DeveloperId).Select(g =>
                     {
                         var groupDeveloper = g.First();
-                        groupDeveloper.Positions = g.Select(d => d.Positions.Single()).ToList();
+                        groupDeveloper.Positions = g.Select(d => d.Positions.FirstOrDefault()).ToList();
                         return groupDeveloper;
                     });
                     return results;
