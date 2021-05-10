@@ -64,7 +64,7 @@ namespace devshops.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             seeder.SeedAdminUser();
 
             app.UseSwaggerDocumentation();
